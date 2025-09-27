@@ -89,7 +89,6 @@ async function getCountryCode(
     } else if (regionMap.keys().next().value) {
       countryCode = regionMap.keys().next().value
     }
-
     return countryCode
   } catch (error) {
     if (process.env.NODE_ENV === "development") {

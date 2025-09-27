@@ -37,17 +37,20 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
 
   const { state, close } = toggleState
 
-  const options = useMemo(() => {
+  const options: CountryOption[] = useMemo(() => {
     return regions
-      ?.map((r) => {
-        return r.countries?.map((c) => ({
-          country: c.iso_2,
-          region: r.id,
-          label: c.display_name,
+      ?.map((region) => {
+        return region.countries?.map((country) => ({
+          country: country.iso_2,
+          region: region.id,
+          label: country.display_name,
         }))
       })
       .flat()
-      .sort((a, b) => (a?.label ?? "").localeCompare(b?.label ?? ""))
+      .filter((option): option is CountryOption => 
+        Boolean(option && option.country && option.label)
+      )
+      .sort((a, b) => a.label.localeCompare(b.label))
   }, [regions])
 
   useEffect(() => {
