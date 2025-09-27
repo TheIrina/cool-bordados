@@ -1,19 +1,9 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-
 <h1 align="center">
-  Medusa Next.js Starter Template
+  Cool Bordados
 </h1>
 
 <p align="center">
-Combine Medusa's modules for your commerce backend with the newest Next.js 15 features for a performant storefront.</p>
+Tienda online de bordados personalizados de alta calidad. Construida con Next.js 15 y Medusa para una experiencia de compra excepcional.</p>
 
 <p align="center">
   <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
@@ -27,37 +17,37 @@ Combine Medusa's modules for your commerce backend with the newest Next.js 15 fe
   </a>
 </p>
 
-### Prerequisites
+### Prerrequisitos
 
-To use the [Next.js Starter Template](https://medusajs.com/nextjs-commerce/), you should have a Medusa server running locally on port 9000.
-For a quick setup, run:
+Para usar Cool Bordados, necesitas tener un servidor Medusa ejecutándose localmente en el puerto 9000.
+Para una configuración rápida, ejecuta:
 
 ```shell
 npx create-medusa-app@latest
 ```
 
-Check out [create-medusa-app docs](https://docs.medusajs.com/learn/installation) for more details and troubleshooting.
+Consulta la [documentación de create-medusa-app](https://docs.medusajs.com/learn/installation) para más detalles y solución de problemas.
 
-# Overview
+# Descripción General
 
-The Medusa Next.js Starter is built with:
+Cool Bordados está construido con:
 
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Medusa](https://medusajs.com/)
 
-Features include:
+Características incluidas:
 
-- Full ecommerce support:
-  - Product Detail Page
-  - Product Overview Page
-  - Product Collections
-  - Cart
-  - Checkout with Stripe
-  - User Accounts
-  - Order Details
-- Full Next.js 15 support:
+- Soporte completo de ecommerce:
+  - Página de Detalle de Producto
+  - Página de Vista General de Productos
+  - Colecciones de Productos
+  - Carrito de Compras
+  - Checkout con Stripe
+  - Cuentas de Usuario
+  - Detalles de Órdenes
+- Soporte completo de Next.js 15:
   - App Router
   - Next fetching/caching
   - Server Components
@@ -65,61 +55,67 @@ Features include:
   - Streaming
   - Static Pre-Rendering
 
-# Quickstart
+# Inicio Rápido
 
-### Setting up the environment variables
+### Configurando las variables de entorno
 
-Navigate into your projects directory and get your environment variables ready:
+Navega al directorio de tu proyecto y prepara tus variables de entorno:
 
 ```shell
-cd nextjs-starter-medusa/
+cd cool-bordados-storefront/
 mv .env.template .env.local
 ```
 
-### Install dependencies
+### Instalar dependencias
 
-Use Yarn to install all dependencies.
+Usa Yarn para instalar todas las dependencias.
 
 ```shell
 yarn
 ```
 
-### Start developing
+### Comenzar a desarrollar
 
-You are now ready to start up your project.
+Ahora estás listo para iniciar tu proyecto.
 
 ```shell
 yarn dev
 ```
 
-### Open the code and start customizing
+### Abre el código y comienza a personalizar
 
-Your site is now running at http://localhost:8000!
+¡Tu sitio ahora está ejecutándose en http://localhost:8000!
 
-# Payment integrations
+# Integraciones de Pago
 
-By default this starter supports the following payment integrations
+Por defecto, Cool Bordados soporta las siguientes integraciones de pago:
 
 - [Stripe](https://stripe.com/)
 
-To enable the integrations you need to add the following to your `.env.local` file:
+Para habilitar las integraciones necesitas agregar lo siguiente a tu archivo `.env.local`:
 
 ```shell
-NEXT_PUBLIC_STRIPE_KEY=<your-stripe-public-key>
+NEXT_PUBLIC_STRIPE_KEY=<tu-clave-publica-de-stripe>
 ```
 
-You'll also need to setup the integrations in your Medusa server. See the [Medusa documentation](https://docs.medusajs.com) for more information on how to configure [Stripe](https://docs.medusajs.com/resources/commerce-modules/payment/payment-provider/stripe#main).
+También necesitarás configurar las integraciones en tu servidor Medusa. Consulta la [documentación de Medusa](https://docs.medusajs.com) para más información sobre cómo configurar [Stripe](https://docs.medusajs.com/resources/commerce-modules/payment/payment-provider/stripe#main).
 
-# Resources
+# Recursos
 
-## Learn more about Medusa
+## Aprende más sobre Medusa
 
-- [Website](https://www.medusajs.com/)
+- [Sitio Web](https://www.medusajs.com/)
 - [GitHub](https://github.com/medusajs)
-- [Documentation](https://docs.medusajs.com/)
+- [Documentación](https://docs.medusajs.com/)
 
-## Learn more about Next.js
+## Aprende más sobre Next.js
 
-- [Website](https://nextjs.org/)
+- [Sitio Web](https://nextjs.org/)
 - [GitHub](https://github.com/vercel/next.js)
-- [Documentation](https://nextjs.org/docs)
+- [Documentación](https://nextjs.org/docs)
+
+---
+
+## Cool Bordados
+
+Cool Bordados es una tienda especializada en bordados personalizados de alta calidad. Ofrecemos una amplia gama de productos bordados para satisfacer todas tus necesidades de personalización.

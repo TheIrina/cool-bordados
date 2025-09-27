@@ -7,7 +7,8 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Checkout",
+  title: "Finalizar Compra | Cool Bordados",
+  description: "Completa tu compra en Cool Bordados",
 }
 
 export default async function Checkout() {

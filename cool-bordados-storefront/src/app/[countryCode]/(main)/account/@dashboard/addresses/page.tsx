@@ -8,7 +8,7 @@ import { retrieveCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
   title: "Addresses",
-  description: "View your addresses",
+  description: "Ve y edita tus direcciones de Cool Bordados",
 }
 
 export default async function Addresses(props: {
