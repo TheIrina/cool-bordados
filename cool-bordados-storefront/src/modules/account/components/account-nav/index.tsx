@@ -54,7 +54,7 @@ const AccountNav = ({
                     <>
                       <div className="flex items-center gap-x-2">
                         <User size={20} />
-                        <span>Profile</span>
+                        <span>Perfil</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
@@ -69,7 +69,7 @@ const AccountNav = ({
                     <>
                       <div className="flex items-center gap-x-2">
                         <MapPin size={20} />
-                        <span>Addresses</span>
+                        <span>Direcciones</span>
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
@@ -83,7 +83,7 @@ const AccountNav = ({
                   >
                     <div className="flex items-center gap-x-2">
                       <Package size={20} />
-                      <span>Orders</span>
+                      <span>Órdenes</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </LocalizedClientLink>
@@ -97,7 +97,7 @@ const AccountNav = ({
                   >
                     <div className="flex items-center gap-x-2">
                       <ArrowRightOnRectangle />
-                      <span>Log out</span>
+                      <span>Cerrar sesión</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </button>
@@ -120,7 +120,7 @@ const AccountNav = ({
                   route={route!}
                   data-testid="overview-link"
                 >
-                  Overview
+                  Resumen
                 </AccountNavLink>
               </li>
               <li>
@@ -129,7 +129,7 @@ const AccountNav = ({
                   route={route!}
                   data-testid="profile-link"
                 >
-                  Profile
+                  Perfil
                 </AccountNavLink>
               </li>
               <li>
@@ -138,7 +138,7 @@ const AccountNav = ({
                   route={route!}
                   data-testid="addresses-link"
                 >
-                  Addresses
+                  Direcciones
                 </AccountNavLink>
               </li>
               <li>
@@ -147,7 +147,7 @@ const AccountNav = ({
                   route={route!}
                   data-testid="orders-link"
                 >
-                  Orders
+                  Órdenes
                 </AccountNavLink>
               </li>
               <li className="text-grey-700">
@@ -156,7 +156,7 @@ const AccountNav = ({
                   onClick={handleLogout}
                   data-testid="logout-button"
                 >
-                  Log out
+                  Cerrar sesión
                 </button>
               </li>
             </ul>

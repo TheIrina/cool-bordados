@@ -14,11 +14,11 @@ type ProductTabsProps = {
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
     {
-      label: "Product Information",
+      label: "Información del producto",
       component: <ProductInfoTab product={product} />,
     },
     {
-      label: "Shipping & Returns",
+      label: "Envío y devoluciones",
       component: <ShippingInfoTab />,
     },
   ]
@@ -97,19 +97,19 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Simple exchanges</span>
             <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+              ¿El ajuste no es del todo correcto? No te preocupes, cambiaremos tu
+              producto por uno nuevo.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
+            <span className="font-semibold">Devoluciones fáciles</span>
             <p className="max-w-sm">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              Simplemente devuelve tu producto y te devolveremos tu dinero. Sin
+              preguntas, haremos todo lo posible para asegurarnos de que tu devolución
+              sea sin complicaciones.
             </p>
           </div>
         </div>

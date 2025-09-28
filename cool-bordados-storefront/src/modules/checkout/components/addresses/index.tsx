@@ -139,12 +139,12 @@ const Addresses = ({
                     data-testid="billing-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Billing Address
+                      Dirección de facturación
                     </Text>
 
                     {sameAsBilling ? (
                       <Text className="txt-medium text-ui-fg-subtle">
-                        Billing and delivery address are the same.
+                        La dirección de facturación y de envío es la misma.
                       </Text>
                     ) : (
                       <>
