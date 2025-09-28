@@ -34,7 +34,7 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
       <div className="mt-4">
         <LocalizedClientLink href="/" passHref>
           <Button data-testid="continue-shopping-button">
-            Continue shopping
+            Seguir comprando
           </Button>
         </LocalizedClientLink>
       </div>
