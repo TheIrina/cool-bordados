@@ -4,6 +4,7 @@ import { CreditCard } from "@medusajs/icons"
 import Ideal from "@modules/common/icons/ideal"
 import Bancontact from "@modules/common/icons/bancontact"
 import PayPal from "@modules/common/icons/paypal"
+import MercadoPago from "@modules/common/icons/mercadopago"
 
 /* Map of payment provider_id to their title and icon. Add in any payment providers you want to use. */
 export const paymentInfoMap: Record<
@@ -30,9 +31,16 @@ export const paymentInfoMap: Record<
     title: "Manual Payment",
     icon: <CreditCard />,
   },
+  pp_mercadopago_mercadopago: {
+    title: "Mercado Pago",
+    icon: <MercadoPago />,
+  },
   // Add more payment providers here
 }
 
+export const isMercadopago = (providerId?: string) => {
+  return providerId?.startsWith("pp_mercadopago_")
+}
 // This only checks if it is native stripe for card payments, it ignores the other stripe-based providers
 export const isStripe = (providerId?: string) => {
   return providerId?.startsWith("pp_stripe_")
