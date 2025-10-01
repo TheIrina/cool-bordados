@@ -3,6 +3,7 @@ import { Text } from "@medusajs/ui"
 import Medusa from "../../../common/icons/medusa"
 import NextJs from "../../../common/icons/nextjs"
 import Irina from "../../../common/icons/irina"
+import Irina2 from "../../../common/icons/irina2"
 
 const MedusaCTA = () => {
   return (
@@ -13,7 +14,7 @@ const MedusaCTA = () => {
       </a>
       &
       <a href="https://nextjs.org" target="_blank" rel="noreferrer">
-        <NextJs fill="#9ca3af" />
+        <Irina2 fill="#9ca3af" />
       </a>
     </Text>
   )
