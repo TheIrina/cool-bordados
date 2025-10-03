@@ -6,6 +6,7 @@ import StripeWrapper from "./stripe-wrapper"
 import { HttpTypes } from "@medusajs/types"
 import { isMercadopago, isStripe } from "@lib/constants"
 import MercadopagoWrapper from "./mercadopago-wrapper"
+import PaymentFormProvider from "../payment-form-provider"
 
 type PaymentWrapperProps = {
   cart: HttpTypes.StoreCart
@@ -27,12 +28,14 @@ const PaymentWrapper: React.FC<PaymentWrapperProps> = ({ cart, children }) => {
     paymentSession 
   ) {
     return (
-      <MercadopagoWrapper
-        mercadopagoKey={mercadopagoKey}
-        paymentSession={paymentSession}
-      >
-        {children}
-      </MercadopagoWrapper>
+      <PaymentFormProvider>
+        <MercadopagoWrapper
+          mercadopagoKey={mercadopagoKey}
+          paymentSession={paymentSession}
+        >
+          {children}
+        </MercadopagoWrapper>
+      </PaymentFormProvider>
     )
   }
 
@@ -42,17 +45,23 @@ const PaymentWrapper: React.FC<PaymentWrapperProps> = ({ cart, children }) => {
     stripePromise
   ) {
     return (
-      <StripeWrapper
-        paymentSession={paymentSession}
-        stripeKey={stripeKey}
-        stripePromise={stripePromise}
-      >
-        {children}
-      </StripeWrapper>
+      <PaymentFormProvider>
+        <StripeWrapper
+          paymentSession={paymentSession}
+          stripeKey={stripeKey}
+          stripePromise={stripePromise}
+        >
+          {children}
+        </StripeWrapper>
+      </PaymentFormProvider>
     )
   }
 
-  return <div>{children}</div>
+  return (
+    <PaymentFormProvider>
+      <div>{children}</div>
+    </PaymentFormProvider>
+  )
 }
 
 export default PaymentWrapper

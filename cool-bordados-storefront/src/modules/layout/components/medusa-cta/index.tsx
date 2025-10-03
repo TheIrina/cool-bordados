@@ -8,11 +8,11 @@ import Irina2 from "../../../common/icons/irina2"
 const MedusaCTA = () => {
   return (
     <Text className="flex gap-x-2 txt-compact-small-plus items-center">
-      Powered by
-      <a href="https://www.medusajs.com" target="_blank" rel="noreferrer">
+      Desarrollado por
+      {/* <a href="https://www.medusajs.com" target="_blank" rel="noreferrer">
         <Irina fill="#9ca3af" className="fill-[#9ca3af]" />
       </a>
-      &
+      & */}
       <a href="https://nextjs.org" target="_blank" rel="noreferrer">
         <Irina2 fill="#9ca3af" />
       </a>

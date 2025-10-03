@@ -1,7 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import { initMercadoPago } from "@mercadopago/sdk-react"
 import { createContext, useEffect } from "react"
-import PaymentFormProvider from "../payment-form-provider"
 
 type Props = {
     paymentSession?: HttpTypes.StorePaymentSession,
@@ -28,9 +27,7 @@ const MercadopagoWrapper: React.FC<Props> = ({
     }, [])
     return (
         <MercadopagoContext.Provider value={true}>
-            <PaymentFormProvider>
-                {children}
-            </PaymentFormProvider>
+            {children}
         </MercadopagoContext.Provider>
     )
 }
