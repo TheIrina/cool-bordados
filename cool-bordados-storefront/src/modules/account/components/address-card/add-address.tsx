@@ -153,9 +153,9 @@ const AddAddress = ({
                 className="h-10"
                 data-testid="cancel-button"
               >
-                Cancel
+                Cancelar
               </Button>
-              <SubmitButton data-testid="save-button">Save</SubmitButton>
+              <SubmitButton data-testid="save-button">Guardar</SubmitButton>
             </div>
           </Modal.Footer>
         </form>

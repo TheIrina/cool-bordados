@@ -116,7 +116,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
             data-testid="address-delete-button"
           >
             {removing ? <Spinner /> : <Trash />}
-            Remove
+            Eliminar
           </button>
         </div>
       </div>
@@ -225,9 +225,9 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 className="h-10"
                 data-testid="cancel-button"
               >
-                Cancel
+                Cancelar
               </Button>
-              <SubmitButton data-testid="save-button">Save</SubmitButton>
+              <SubmitButton data-testid="save-button">Guardar</SubmitButton>
             </div>
           </Modal.Footer>
         </form>
