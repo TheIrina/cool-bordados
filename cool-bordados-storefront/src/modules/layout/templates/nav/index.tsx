@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import Image from "next/image"
 
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
@@ -22,10 +23,17 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="flex items-center hover:opacity-80 transition-opacity duration-200"
               data-testid="nav-store-link"
             >
-              Cool Bordados
+              <Image
+                src="/imagotipo.png"
+                alt="Cool Bordados"
+                width={120}
+                height={40}
+                className="h-8 w-auto object-contain"
+                priority
+              />
             </LocalizedClientLink>
           </div>
 
