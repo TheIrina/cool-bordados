@@ -147,7 +147,7 @@ const ShippingAddress = ({
           data-testid="shipping-company-input"
         />
         <Input
-          label="Postal code"
+          label="Código postal"
           name="shipping_address.postal_code"
           autoComplete="postal-code"
           value={formData["shipping_address.postal_code"]}
@@ -156,7 +156,7 @@ const ShippingAddress = ({
           data-testid="shipping-postal-code-input"
         />
         <Input
-          label="City"
+          label="Ciudad"
           name="shipping_address.city"
           autoComplete="address-level2"
           value={formData["shipping_address.city"]}
@@ -174,7 +174,7 @@ const ShippingAddress = ({
           data-testid="shipping-country-select"
         />
         <Input
-          label="State / Province"
+          label="Estado / Provincia"
           name="shipping_address.province"
           autoComplete="address-level1"
           value={formData["shipping_address.province"]}
