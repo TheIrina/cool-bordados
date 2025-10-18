@@ -1,4 +1,5 @@
 const checkEnvVariables = require("./check-env-variables")
+const path = require("path")
 
 checkEnvVariables()
 
@@ -6,6 +7,7 @@ checkEnvVariables()
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  outputFileTracingRoot: path.join(__dirname, "../"),
   reactStrictMode: true,
   logging: {
     fetches: {

@@ -11,16 +11,16 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
-    }
+    },
   },
   admin: {
     // Configuración del panel de administración para acceso externo
-    backendUrl: process.env.MEDUSA_BACKEND_URL || "https://cool.irinacloud.co/",
+    backendUrl: process.env.MEDUSA_BACKEND_URL || "https://medusa.irinacloud.co/",
     path: "/app",
     vite: () => {
       return {
         server: {
-          allowedHosts: ["cool.irinacloud.co"],
+          allowedHosts: ["cool.irinacloud.co", "medusa.irinacloud.co"],
         },
       }
     },
@@ -36,19 +36,33 @@ module.exports = defineConfig({
   ],
   modules: [
     {
-      resolve: '@medusajs/medusa/payment',
+      resolve: "@medusajs/medusa/file",
       options: {
         providers: [
           {
-            resolve: '@nicogorga/medusa-payment-mercadopago/providers/mercado-pago',
-            id: 'mercadopago',
+            resolve: "@medusajs/medusa/file-local",
+            id: "local",
+            options: {
+              upload_dir: "static",
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "@nicogorga/medusa-payment-mercadopago/providers/mercado-pago",
+            id: "mercadopago",
             options: {
               accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
               webhookSecret: process.env.MERCADOPAGO_WEBHOOK_SECRET,
             },
-          }
+          },
         ],
-      }
-    }
-  ]
+      },
+    },
+  ],
 })
