@@ -14,10 +14,13 @@ module.exports = defineConfig({
     }
   },
   admin: {
+    // Configuración del panel de administración para acceso externo
+    backendUrl: process.env.MEDUSA_BACKEND_URL || "https://cool.irinacloud.co/",
+    path: "/app",
     vite: () => {
       return {
         server: {
-          allowedHosts: [".ngrok-free.app", ".ngrok.io"],
+          allowedHosts: ["cool.irinacloud.co"],
         },
       }
     },
