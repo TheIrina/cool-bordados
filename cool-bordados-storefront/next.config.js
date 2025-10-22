@@ -7,9 +7,7 @@ checkEnvVariables()
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  experimental: {
-    mcpServer: true,
-  },
+  cacheComponents: true,
   outputFileTracingRoot: path.join(__dirname, "../"),
   reactStrictMode: true,
   logging: {
