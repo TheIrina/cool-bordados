@@ -7,6 +7,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import CollectionsDropdown from "@modules/layout/components/collections-dropdown"
+import Banner from "@modules/layout/components/banner"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -65,6 +66,7 @@ export default async function Nav() {
           </div>
         </nav>
       </header>
+      <Banner />
     </div>
   )
 }
