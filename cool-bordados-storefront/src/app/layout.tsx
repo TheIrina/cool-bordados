@@ -1,6 +1,8 @@
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import "styles/globals.css"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-mode="light">
+    <html lang="en" data-mode="light" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <main className="relative">{props.children}</main>
       </body>
