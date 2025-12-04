@@ -35,13 +35,8 @@ const CollectionsDropdown = () => {
       onMouseLeave={close}
     >
       <Popover className="relative h-full">
-        <PopoverButton className="h-full">
-          <LocalizedClientLink
-            className="hover:text-gray-300"
-            href="/collections"
-          >
-            Colecciones
-          </LocalizedClientLink>
+        <PopoverButton className="h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-gray-300 uppercase font-medium tracking-wider">
+          Colecciones
         </PopoverButton>
         <Transition
           show={dropdownOpen}
