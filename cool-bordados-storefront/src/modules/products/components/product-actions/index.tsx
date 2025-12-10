@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
+import QuantitySelector from "@modules/products/components/product-actions/quantity-selector"
 import { isEqual } from "lodash"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -33,6 +34,7 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [quantity, setQuantity] = useState(1)
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
@@ -94,6 +96,21 @@ export default function ProductActions({
     return false
   }, [selectedVariant])
 
+  // Calculate max quantity based on inventory
+  const maxQuantity = useMemo(() => {
+    if (!selectedVariant) return undefined
+    if (!selectedVariant.manage_inventory) return undefined
+    if (selectedVariant.allow_backorder) return undefined
+    return selectedVariant.inventory_quantity || 0
+  }, [selectedVariant])
+
+  // Reset quantity when variant changes if quantity exceeds max
+  useEffect(() => {
+    if (maxQuantity !== undefined && quantity > maxQuantity) {
+      setQuantity(Math.max(1, maxQuantity))
+    }
+  }, [maxQuantity, quantity])
+
   const actionsRef = useRef<HTMLDivElement>(null)
 
   const inView = useIntersection(actionsRef, "0px")
@@ -106,7 +123,7 @@ export default function ProductActions({
 
     await addToCart({
       variantId: selectedVariant.id,
-      quantity: 1,
+      quantity: quantity,
       countryCode,
     })
 
@@ -115,7 +132,16 @@ export default function ProductActions({
 
   return (
     <>
-      <div className="flex flex-col gap-y-2" ref={actionsRef}>
+      <div className="flex flex-col gap-y-4" ref={actionsRef}>
+        {/* Quantity Selector */}
+        <QuantitySelector
+          quantity={quantity}
+          onChange={setQuantity}
+          max={maxQuantity}
+          disabled={!!disabled || isAdding}
+        />
+
+        {/* Options/Sizes */}
         <div>
           {(product.variants?.length ?? 0) > 1 && (
             <div className="flex flex-col gap-y-4">
@@ -129,6 +155,7 @@ export default function ProductActions({
                       title={option.title ?? ""}
                       data-testid="product-options"
                       disabled={!!disabled || isAdding}
+                      variants={product.variants}
                     />
                   </div>
                 )
@@ -138,8 +165,14 @@ export default function ProductActions({
           )}
         </div>
 
-        <ProductPrice product={product} variant={selectedVariant} />
+        {/* Price Display */}
+        <ProductPrice
+          product={product}
+          variant={selectedVariant}
+          quantity={quantity}
+        />
 
+        {/* Add to Cart Button */}
         <Button
           onClick={handleAddToCart}
           disabled={
@@ -157,8 +190,8 @@ export default function ProductActions({
           {!selectedVariant && !options
             ? "Seleccionar variante"
             : !inStock || !isValidVariant
-            ? "Agotado"
-            : "Agregar al carrito"}
+              ? "Agotado"
+              : `Agregar ${quantity} al carrito`}
         </Button>
         <MobileActions
           product={product}
