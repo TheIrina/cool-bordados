@@ -41,6 +41,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "medusa.irinacloud.co",
       },
+      {
+        protocol: "https",
+        hostname: "http2.mlstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "mercadopago.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cool.irinacloud.co",
+      },
     ],
   },
 }
