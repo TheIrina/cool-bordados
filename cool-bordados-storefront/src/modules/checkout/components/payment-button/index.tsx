@@ -9,6 +9,7 @@ import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import { useMercadopagoFormData } from "../payment-form-provider"
 import { confirmMercadopagoPayment } from "@lib/data/payment"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -172,6 +173,9 @@ const MercadopagoPaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   const onPaymentCompleted = async () => {
     await placeOrder()
@@ -193,14 +197,29 @@ const MercadopagoPaymentButton = ({
 
   const handlePayment = async () => {
     setSubmitting(true)
+    setErrorMessage(null)
 
     if (!cart || !session) {
       setSubmitting(false)
       return
     }
 
-    await confirmMercadopagoPayment(session.id, formData!.formData!)
-    onPaymentCompleted();
+    if (!formData) {
+      const params = new URLSearchParams(searchParams)
+      params.set("step", "payment")
+      router.push(`${pathname}?${params.toString()}`)
+      setSubmitting(false)
+      setErrorMessage("Por favor, ingrese sus datos de pago nuevamente.")
+      return
+    }
+
+    try {
+      await confirmMercadopagoPayment(session.id, formData.formData)
+      onPaymentCompleted()
+    } catch (e: any) {
+      setErrorMessage(e.message || "Error al procesar el pago")
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -216,7 +235,7 @@ const MercadopagoPaymentButton = ({
       </Button>
       <ErrorMessage
         error={errorMessage}
-        data-testid="stripe-payment-error-message"
+        data-testid="mercadopago-payment-error-message"
       />
     </>
   )
