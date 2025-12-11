@@ -12,9 +12,10 @@ type RefinementListProps = {
   'data-testid'?: string
   categories?: { id: string; name: string; category_children?: any[] }[]
   selectedCategoryId?: string
+  searchQuery?: string
 }
 
-const RefinementList = ({ sortBy, categories = [], selectedCategoryId, 'data-testid': dataTestId }: RefinementListProps) => {
+const RefinementList = ({ sortBy, categories = [], selectedCategoryId, 'data-testid': dataTestId, searchQuery }: RefinementListProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

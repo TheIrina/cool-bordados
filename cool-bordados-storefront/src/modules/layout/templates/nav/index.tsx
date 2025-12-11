@@ -4,6 +4,7 @@ import Image from "next/image"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import SearchModal from "@modules/search/components/search-modal"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import CollectionsDropdown from "@modules/layout/components/collections-dropdown"
@@ -51,13 +52,7 @@ export default async function Nav() {
           {/* Right Section: Icons */}
           <div className="flex items-center gap-x-6 h-full justify-end">
             <div className="hidden small:flex items-center gap-x-6 h-full">
-              {/* Search Icon Placeholder - To be implemented properly if needed */}
-              <button className="hover:text-gray-300">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
+              <SearchModal />
               <LocalizedClientLink
                 className="hover:text-gray-300"
                 href="/account"

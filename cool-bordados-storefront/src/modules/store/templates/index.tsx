@@ -4,17 +4,20 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { listCategories } from "@lib/data/categories"
 import PaginatedProducts from "./paginated-products"
+import StoreSearch from "@modules/store/components/store-search"
 
 const StoreTemplate = async ({
   sortBy,
   page,
   countryCode,
   categoryId,
+  searchQuery,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
   categoryId?: string
+  searchQuery?: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -25,10 +28,11 @@ const StoreTemplate = async ({
       className="flex flex-col small:flex-row small:items-start py-6 content-container"
       data-testid="category-container"
     >
-      <RefinementList sortBy={sort} categories={categories} selectedCategoryId={categoryId} />
+      <RefinementList sortBy={sort} categories={categories} selectedCategoryId={categoryId} searchQuery={searchQuery} />
       <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">Todos los productos</h1>
+        <div className="mb-8 flex flex-col gap-4">
+          <h1 className="text-2xl-semi" data-testid="store-page-title">Todos los productos</h1>
+          <StoreSearch />
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>
           <PaginatedProducts
@@ -36,6 +40,7 @@ const StoreTemplate = async ({
             page={pageNumber}
             countryCode={countryCode}
             categoryId={categoryId}
+            searchQuery={searchQuery}
           />
         </Suspense>
       </div>
