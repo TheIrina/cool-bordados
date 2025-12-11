@@ -44,6 +44,7 @@ module.exports = defineConfig({
             id: "local",
             options: {
               upload_dir: "static",
+              backend_url: "https://cool.irinacloud.co/static",
             },
           },
         ],
