@@ -51,10 +51,10 @@ export default async function Nav() {
 
           {/* Right Section: Icons */}
           <div className="flex items-center gap-x-6 h-full justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+            <div className="flex items-center gap-x-6 h-full">
               <SearchModal />
               <LocalizedClientLink
-                className="hover:text-gray-300"
+                className="hidden small:flex hover:text-gray-300"
                 href="/account"
                 data-testid="nav-account-link"
               >

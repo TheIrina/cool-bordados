@@ -44,39 +44,38 @@ const StoreSearch = () => {
   }
 
   return (
-    <div className="w-full max-w-[300px] relative group">
-       <div className="relative">
-          <input
-            type="text"
-            value={query}
-            onChange={handleChange}
-            placeholder="Buscar productos..."
-            className="w-full h-10 pl-3 pr-10 text-sm bg-ui-bg-field border border-ui-border-base rounded-md focus:outline-none focus:ring-0 focus:shadow-none focus:border-gray-900 hover:bg-ui-bg-field-hover transition-all"
-          />
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            {query ? (
-                <button 
-                    onClick={() => {
-                        setQuery("")
-                        debouncedSearch("")
-                    }}
-                    className="text-ui-fg-subtle hover:text-ui-fg-base focus:outline-none"
-                >
-                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M6 6L18 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                </button>
-            ) : (
-                <div className="text-ui-fg-muted pointer-events-none">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </div>
-            )}
-          </div>
-       </div>
+    <div className="w-full max-w-[320px] relative group">
+      <div className="relative">
+        <input
+          type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Buscar productos..."
+          className="w-full h-11 pl-11 pr-10 text-sm bg-[#1a1a1a]/90 backdrop-blur-sm text-white placeholder:text-white/40 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20 hover:bg-[#1a1a1a] hover:border-white/15 transition-all duration-200"
+        />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white/50">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+          {query ? (
+            <button
+              onClick={() => {
+                setQuery("")
+                debouncedSearch("")
+              }}
+              className="p-1 rounded-lg hover:bg-white/10 text-white/50 hover:text-white/80 focus:outline-none transition-all duration-200"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          ) : null}
+        </div>
+      </div>
     </div>
   )
 }
