@@ -1,7 +1,7 @@
 "use client"
 
 import { RadioGroup } from "@headlessui/react"
-import { isMercadopago, isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
+import { isMercadopago, isContraEntrega, isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
 import { initiatePaymentSession } from "@lib/data/cart"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
 import { Button, Container, Heading, Text, clx } from "@medusajs/ui"
@@ -15,6 +15,8 @@ import { useCallback, useEffect, useState } from "react"
 import { useMercadopagoFormData } from "../payment-form-provider"
 import { Payment as MpPaymentBrick } from "@mercadopago/sdk-react"
 import { StoreCart } from "@medusajs/types"
+import Checkbox from "@modules/common/components/checkbox"
+import ContraEntregaForm from "./contra-entrega-form"
 
 const Payment = ({
   cart,
@@ -35,7 +37,14 @@ const Payment = ({
     activeSession?.provider_id ?? ""
   )
 
-  const { setFormData, setAdditionalData, formData, additionalData } = useMercadopagoFormData();
+  useEffect(() => {
+    if (activeSession?.provider_id) {
+        setSelectedPaymentMethod(activeSession.provider_id)
+    }
+  }, [activeSession?.provider_id])
+  const [termsAccepted, setTermsAccepted] = useState(false)
+
+  const { setFormData, setAdditionalData, formData, additionalData, contraEntregaData } = useMercadopagoFormData();
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -43,17 +52,69 @@ const Payment = ({
 
   const isOpen = searchParams.get("step") === "payment"
 
-  const isStripe = isStripeFunc(selectedPaymentMethod)
-  const isMp = isMercadopago(selectedPaymentMethod);
-
   const setPaymentMethod = async (method: string) => {
     setError(null)
     setSelectedPaymentMethod(method)
-    if (isStripeFunc(method) || isMercadopago(method)) {
+    console.log("Selected method:", method) // Log ANY selected method
+    if (isStripeFunc(method) || isMercadopago(method) || isContraEntrega(method)) {
+      console.log("Initiating session for:", method)
       await initiatePaymentSession(cart, {
         provider_id: method,
+      }).catch((err) => {
+        console.error("Error initiating payment session:", err)
+        setError("Error al iniciar la sesión de pago. Por favor intenta nuevamente.")
       })
     }
+  }
+
+  const isCoEntrega = isContraEntrega(selectedPaymentMethod);
+  const isMp = isMercadopago(selectedPaymentMethod);
+  const isStripe = isStripeFunc(selectedPaymentMethod);
+
+  const validateContraEntrega = () => {
+    if (!termsAccepted) {
+      setError("Debes aceptar los términos y condiciones para continuar.")
+      return false
+    }
+
+    if (!contraEntregaData) {
+      setError("Por favor completa el formulario de contra entrega.")
+      return false
+    }
+
+    const { fullName, phone, email, address, postalCode, state } = contraEntregaData
+
+    if (fullName.length < 5) {
+      setError("El nombre completo debe tener al menos 5 caracteres")
+      return false
+    }
+
+    if (!/^\d+$/.test(phone.replace(/\s/g, ""))) {
+      setError("El teléfono debe contener solo números")
+      return false
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Ingresa un correo electrónico válido")
+      return false
+    }
+
+    if (!address) {
+      setError("La dirección es obligatoria")
+      return false
+    }
+
+    if (!/^\d+$/.test(postalCode)) {
+      setError("El código postal debe ser numérico")
+      return false
+    }
+
+    if (!state) {
+      setError("El estado es obligatorio")
+      return false
+    }
+
+    return true
   }
 
   const paidByGiftcard =
@@ -91,6 +152,21 @@ const Payment = ({
         await initiatePaymentSession(cart, {
           provider_id: selectedPaymentMethod,
         })
+      }
+
+      if (isCoEntrega) {
+        const isValid = validateContraEntrega()
+        
+        if (!isValid) {
+            setIsLoading(false)
+            return
+        }
+        return router.push(
+          pathname + "?" + createQueryString("step", "review"),
+          {
+            scroll: false,
+          }
+        )
       }
 
       if (isMp && !window.paymentBrickController) {
@@ -188,30 +264,62 @@ const Payment = ({
                         setCardComplete={setCardComplete}
                       />
                     ) : (
-                      <PaymentContainer
-                        paymentInfoMap={paymentInfoMap}
-                        paymentProviderId={paymentMethod.id}
-                        selectedPaymentOptionId={selectedPaymentMethod}
-                      />
+                        <>
+                          <PaymentContainer
+                            paymentInfoMap={paymentInfoMap}
+                            paymentProviderId={paymentMethod.id}
+                            selectedPaymentOptionId={selectedPaymentMethod}
+                          />
+                          { console.log("paymentMethod.id: ",paymentMethod.id)}
+                          {console.log("selectedPaymentMethod:", selectedPaymentMethod)}
+                          {isContraEntrega(paymentMethod.id) && selectedPaymentMethod === paymentMethod.id && (
+                            <div className="p-4 bg-ui-bg-subtle border border-t-0 rounded-b-rounded -mt-2 mb-4">
+                                <ContraEntregaForm cart={cart} />
+                                <div className="mt-4 flex items-center gap-x-2">
+                                    <Checkbox 
+                                    label="Acepto los términos y condiciones de pago contra entrega" 
+                                    checked={termsAccepted}
+                                    onChange={() => setTermsAccepted(!termsAccepted)}
+                                    />
+                                </div>
+                            </div>
+                          )}
+                          {isMercadopago(paymentMethod.id) && selectedPaymentMethod === paymentMethod.id && (
+                            <div className="p-4 bg-ui-bg-subtle border border-t-0 rounded-b-rounded -mt-2 mb-4">
+                                <MpPaymentBrick
+                                  initialization={{
+                                    amount: cart.amount || cart.total
+                                  }}
+                                  customization={{
+                                    paymentMethods: { creditCard: "all", debitCard: "all" },
+                                    visual: {
+                                      hidePaymentButton: false,
+                                      hideFormTitle: true,
+                                    },
+                                  }}
+                                  onSubmit={async (param) => {
+                                    // @ts-ignore
+                                    const additionalData = await window.paymentBrickController!.getAdditionalData();
+                                    // @ts-ignore
+                                    const formData = await window.paymentBrickController!.getFormData();
+                                    if (additionalData) {
+                                      setAdditionalData(additionalData);
+                                    }
+                                    if (formData) {
+                                      setFormData(formData);
+                                      router.push(pathname + "?" + createQueryString("step", "review"), {
+                                        scroll: false,
+                                      })
+                                    }
+                                  }}
+                                ></MpPaymentBrick>
+                            </div>
+                          )}
+                        </>
                     )}
                   </div>
                 ))}
               </RadioGroup>
-              {isMp && (
-                <MpPaymentBrick
-                  initialization={{
-                    amount: cart.amount || cart.total
-                  }}
-                  customization={{
-                    paymentMethods: { creditCard: "all", debitCard: "all" },
-                    visual: {
-                      hidePaymentButton: true,
-                      hideFormTitle: true,
-                    },
-                  }}
-                  onSubmit={async (param) => await Promise.resolve()}
-                ></MpPaymentBrick>
-              )}
             </>
           )}
 
@@ -234,21 +342,35 @@ const Payment = ({
             data-testid="payment-method-error-message"
           />
 
-          <Button
-            size="large"
-            className="mt-6"
-            onClick={handleSubmit}
-            isLoading={isLoading}
-            disabled={
-              (isStripe && !cardComplete) ||
-              (!selectedPaymentMethod && !paidByGiftcard)
-            }
-            data-testid="submit-payment-button"
-          >
-            {!activeSession && isStripeFunc(selectedPaymentMethod)
-              ? " Ingresar datos de tarjeta"
-              : "Continuar a revisión"}
-          </Button>
+          {!isMp && !isCoEntrega && (
+            <Button
+              size="large"
+              className="mt-6"
+              onClick={handleSubmit}
+              isLoading={isLoading}
+              disabled={
+                (isStripe && !cardComplete) ||
+                (!selectedPaymentMethod && !paidByGiftcard)
+              }
+              data-testid="submit-payment-button"
+            >
+              {!activeSession && isStripeFunc(selectedPaymentMethod)
+                ? " Ingresar datos de tarjeta"
+                : "Continuar a revisión"}
+            </Button>
+          )}
+
+          {isCoEntrega && (
+             <Button
+                size="large"
+                className="mt-6"
+                onClick={handleSubmit}
+                isLoading={isLoading}
+                data-testid="submit-payment-button-contra-entrega"
+            >
+                Continuar a revisión
+            </Button>
+          )}
         </div>
 
         <div className={isOpen ? "hidden" : "block"}>

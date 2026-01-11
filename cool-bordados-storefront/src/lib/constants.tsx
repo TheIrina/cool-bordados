@@ -35,12 +35,25 @@ export const paymentInfoMap: Record<
     title: "Mercado Pago",
     icon: <MercadoPago />,
   },
+  pp_contra_entrega_contra_entrega: {
+    title: "Contra Entrega",
+    icon: <MercadoPago />,
+  },
+  "pp_contra-entrega_contra-entrega": {
+    title: "Contra Entrega",
+    icon: <MercadoPago />,
+  },
   // Add more payment providers here
 }
 
 export const isMercadopago = (providerId?: string) => {
   return providerId?.startsWith("pp_mercadopago_")
 }
+
+export const isContraEntrega = (providerId?: string) => {
+  return providerId?.startsWith("pp_contra-entrega_")
+}
+
 // This only checks if it is native stripe for card payments, it ignores the other stripe-based providers
 export const isStripe = (providerId?: string) => {
   return providerId?.startsWith("pp_stripe_")

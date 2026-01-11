@@ -1,9 +1,9 @@
 "use client"
 
-import { isManual, isMercadopago, isStripe } from "@lib/constants"
+import { isContraEntrega, isManual, isMercadopago, isStripe } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@medusajs/ui"
+import { Button, Text } from "@medusajs/ui"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
@@ -40,12 +40,16 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
       )
       case isMercadopago(paymentSession?.provider_id):
         return (
-          <MercadopagoPaymentButton
-            notReady={false}
-            cart={cart}
-            data-testid={dataTestId}
-          />
-        )
+        <MercadopagoPaymentButton
+          notReady={false}
+          cart={cart}
+          data-testid={dataTestId}
+        />
+      )
+    case isContraEntrega(paymentSession?.provider_id):
+      return (
+        <ContraEntregaPaymentButton notReady={notReady} data-testid={dataTestId} cart={cart} />
+      )
     case isManual(paymentSession?.provider_id):
       return (
         <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
@@ -271,6 +275,103 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         data-testid="submit-order-button"
       >
         Place order
+      </Button>
+      <ErrorMessage
+        error={errorMessage}
+        data-testid="manual-payment-error-message"
+      />
+    </>
+  )
+}
+
+import { updateCart } from "@lib/data/cart"
+
+const ContraEntregaPaymentButton = ({
+  notReady,
+  "data-testid": dataTestId,
+  cart,
+}: {
+  notReady: boolean
+  "data-testid"?: string
+  cart: HttpTypes.StoreCart
+}) => {
+  const [submitting, setSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const { contraEntregaData } = useMercadopagoFormData()
+
+  const onPaymentCompleted = async () => {
+    await placeOrder()
+      .catch((err) => {
+        setErrorMessage(err.message)
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
+  }
+
+  const handlePayment = async () => {
+    setSubmitting(true)
+    
+    if (contraEntregaData) {
+        // Update cart with data from form
+        try {
+            const names = contraEntregaData.fullName.split(" ")
+            const firstName = names[0]
+            const lastName = names.slice(1).join(" ") || "."
+
+            await updateCart({
+                email: contraEntregaData.email,
+                shipping_address: {
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone: contraEntregaData.phone,
+                    address_1: contraEntregaData.address,
+                    address_2: contraEntregaData.references,
+                    postal_code: contraEntregaData.postalCode,
+                    province: contraEntregaData.state,
+                    city: cart.shipping_address?.city || "Default City", 
+                    country_code: cart.shipping_address?.country_code || "co",
+                },
+                billing_address: {
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone: contraEntregaData.phone,
+                    address_1: contraEntregaData.address,
+                    address_2: contraEntregaData.references,
+                    postal_code: contraEntregaData.postalCode,
+                    province: contraEntregaData.state,
+                    city: cart.shipping_address?.city || "Default City",
+                    country_code: cart.shipping_address?.country_code || "co",
+                }
+            })
+            // Force revalidation or re-fetch of cart might be needed here if updateCart invalidates shipping methods
+            // However, usually updating address *might* invalidate shipping methods if the region changes.
+            // If we are just updating details within the same region/zip (mostly), it *should* be fine,
+            // BUT Medusa might be strict.
+            
+        } catch (e: any) {
+            setErrorMessage(e.message)
+            setSubmitting(false)
+            return
+        }
+    }
+    
+    onPaymentCompleted()
+  }
+
+  return (
+    <>
+      <div className="flex items-center gap-x-2 bg-ui-bg-subtle p-4 mb-4 rounded-md text-ui-fg-subtle">
+        <Text>Pedido cobrado en el lugar de entrega</Text>
+      </div>
+      <Button
+        disabled={notReady}
+        isLoading={submitting}
+        onClick={handlePayment}
+        size="large"
+        data-testid={dataTestId}
+      >
+        Confirmar pedido
       </Button>
       <ErrorMessage
         error={errorMessage}
