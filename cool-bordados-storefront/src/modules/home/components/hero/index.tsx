@@ -1,11 +1,14 @@
 import { Github } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const Hero = () => {
   return (
     <div className="h-[94vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
       {/* Video de fondo */}
-      <video
+      {/**
+       * 
+        <video
         autoPlay
         loop
         muted
@@ -15,6 +18,10 @@ const Hero = () => {
       >
         <source src="/video.webm" type="video/webm" />
       </video>
+       */}
+
+      <img src="/banner.webp" alt="hero banner" className="absolute inset-0 w-full h-full object-cover max-h-[94vh]" />
+      
 
       {/* Overlay para mejorar la legibilidad del texto */}
       <div className="absolute inset-0 bg-black/40"></div>
@@ -34,9 +41,11 @@ const Hero = () => {
             Bordados personalizados de alta calidad
           </Heading>
         </span>
-        <Button variant="secondary">
-          Explorar productos
-        </Button>
+        <LocalizedClientLink href="/store">
+          <Button variant="secondary">
+            Explorar productos
+          </Button>
+        </LocalizedClientLink>
       </div>
     </div>
   )
