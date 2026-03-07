@@ -18,14 +18,28 @@ export default async function Home(props: {
 
   const { countryCode } = params
 
-  const region = await getRegion(countryCode)
+  let region = null
+  let collections = null
 
-  const { collections } = await listCollections({
-    fields: "id, handle, title",
-  })
+  try {
+    region = await getRegion(countryCode)
+    const collectionsData = await listCollections({
+      fields: "id, handle, title",
+    })
+    collections = collectionsData.collections
+  } catch (error) {
+    console.error("Failed to fetch region or collections for homepage:", error)
+  }
 
   if (!collections || !region) {
-    return null
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center min-h-[calc(100vh-64px)]">
+        <h1 className="text-2xl-semi text-ui-fg-base">Página no disponible</h1>
+        <p className="text-small-regular text-ui-fg-base">
+          Actualmente no podemos cargar la tienda. Por favor, intenta de nuevo más tarde.
+        </p>
+      </div>
+    )
   }
 
   return (
