@@ -223,7 +223,7 @@ const Shipping: React.FC<ShippingProps> = ({
                           checked={showPickupOptions === PICKUP_OPTION_ON}
                         />
                         <span className="text-base-regular">
-                          Pick up your order
+                          Recoger en tienda
                         </span>
                       </div>
                       <span className="justify-self-end text-ui-fg-base">
