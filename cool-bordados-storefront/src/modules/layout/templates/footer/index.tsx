@@ -120,18 +120,18 @@ export default async function Footer() {
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/contact"
+                    href="/terms"
                     className="hover:text-gray-300"
                   >
-                    Contacto
+                    Términos y condiciones
                   </LocalizedClientLink>
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/services"
+                    href="/privacy"
                     className="hover:text-gray-300"
                   >
-                    Servicios
+                    Política de privacidad
                   </LocalizedClientLink>
                 </li>
               </ul>
