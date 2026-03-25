@@ -66,9 +66,9 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
   }
 
   return (
-    <div>
+    <div className="relative w-full">
       <Listbox
-        as="span"
+        as="div"
         onChange={handleChange}
         defaultValue={
           countryCode
@@ -76,60 +76,65 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
             : undefined
         }
       >
-        <ListboxButton className="py-1 w-full">
-          <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Envío a:</span>
+        <ListboxButton className="w-full py-2 px-3 rounded-lg hover:bg-neutral-800/50 transition-colors text-left focus:outline-none">
+          <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1">Envío a</div>
+          <div className="flex items-center gap-x-2 text-sm font-medium text-neutral-200">
             {current && (
-              <span className="txt-compact-small flex items-center gap-x-2">
+              <>
+                {/* @ts-ignore */}
+                <ReactCountryFlag
+                  svg
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    borderRadius: "2px",
+                  }}
+                  countryCode={current.country ?? ""}
+                />
+                <span className="truncate">{current.label}</span>
+              </>
+            )}
+          </div>
+        </ListboxButton>
+
+        <Transition
+          show={state}
+          as={Fragment}
+          leave="transition ease-in duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <ListboxOptions
+            static
+            className="absolute bottom-full left-0 mb-2 w-full min-w-[240px] max-h-[300px] overflow-y-auto z-[100] bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl p-1 no-scrollbar focus:outline-none"
+          >
+            <div className="px-3 py-2 border-b border-neutral-800 mb-1">
+              <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-bold">Seleccionar país</span>
+            </div>
+            {options?.map((o, index) => (
+              <ListboxOption
+                key={index}
+                value={o}
+                className={({ active }) => clx(
+                  "py-2.5 px-3 rounded-lg cursor-pointer flex items-center gap-x-3 text-sm transition-all duration-200",
+                  active ? "bg-neutral-800 text-white" : "text-neutral-400 hover:text-neutral-200"
+                )}
+              >
                 {/* @ts-ignore */}
                 <ReactCountryFlag
                   svg
                   style={{
                     width: "16px",
                     height: "16px",
+                    borderRadius: "2px",
                   }}
-                  countryCode={current.country ?? ""}
+                  countryCode={o?.country ?? ""}
                 />
-                {current.label}
-              </span>
-            )}
-          </div>
-        </ListboxButton>
-        <div className="flex relative w-full min-w-[320px]">
-          <Transition
-            show={state}
-            as={Fragment}
-            leave="transition ease-in duration-150"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <ListboxOptions
-              className="absolute -bottom-[calc(100%-36px)] left-0 xsmall:left-auto xsmall:right-0 max-h-[442px] overflow-y-scroll z-[900] bg-white drop-shadow-md text-small-regular uppercase text-black no-scrollbar rounded-rounded w-full"
-              static
-            >
-              {options?.map((o, index) => {
-                return (
-                  <ListboxOption
-                    key={index}
-                    value={o}
-                    className="py-2 hover:bg-gray-200 px-3 cursor-pointer flex items-center gap-x-2"
-                  >
-                    {/* @ts-ignore */}
-                    <ReactCountryFlag
-                      svg
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                      }}
-                      countryCode={o?.country ?? ""}
-                    />{" "}
-                    {o?.label}
-                  </ListboxOption>
-                )
-              })}
-            </ListboxOptions>
-          </Transition>
-        </div>
+                <span className="font-medium">{o?.label}</span>
+              </ListboxOption>
+            ))}
+          </ListboxOptions>
+        </Transition>
       </Listbox>
     </div>
   )
