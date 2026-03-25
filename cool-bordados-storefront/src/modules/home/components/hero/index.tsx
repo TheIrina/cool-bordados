@@ -20,7 +20,7 @@ const Hero = () => {
       </video>
        */}
 
-      <img src="/banner.webp" alt="hero banner" className="absolute inset-0 w-full h-full object-cover max-h-[94vh]" />
+      <img src="/banner.avif" alt="hero banner" className="absolute inset-0 w-full h-full object-cover max-h-[94vh]" />
       
 
       {/* Overlay para mejorar la legibilidad del texto */}

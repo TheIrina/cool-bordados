@@ -50,16 +50,16 @@ const CollectionsDropdown = () => {
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[200px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+15px)] -left-4 w-[280px] bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl overflow-hidden text-neutral-200"
           >
-            <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Colecciones</h3>
+            <div className="p-5 border-b border-neutral-800 bg-black/20">
+              <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Colecciones</h3>
             </div>
-            <div className="overflow-y-scroll max-h-[402px] px-4 grid grid-cols-1 gap-y-4 no-scrollbar p-px">
+            <div className="overflow-y-auto max-h-[400px] p-2 flex flex-col gap-1">
               {collections.map((collection) => (
                 <LocalizedClientLink
                   key={collection.id}
-                  className="block hover:text-gray-300"
+                  className="px-3 py-2.5 rounded-lg hover:bg-neutral-800/80 hover:text-white transition-all duration-200 text-sm font-medium"
                   href={`/collections/${collection.handle}`}
                 >
                   {collection.title}
