@@ -8,11 +8,12 @@ import Modal from "@modules/common/components/modal"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 import debounce from "lodash/debounce"
+import { HttpTypes } from "@medusajs/types"
 
 export default function SearchModal() {
   const { state: isOpen, open, close } = useToggleState()
   const [query, setQuery] = useState("")
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<HttpTypes.StoreProduct[]>([])
   const [isPending, startTransition] = useTransition()
   const params = useParams()
   const countryCode = params?.countryCode as string
@@ -117,7 +118,7 @@ export default function SearchModal() {
                   </svg>
                 </div>
                 <p className="text-white/40 text-sm">No se encontraron productos para</p>
-                <p className="text-white/70 font-medium mt-1">"{query}"</p>
+                <p className="text-white/70 font-medium mt-1">&ldquo;{query}&rdquo;</p>
               </div>
             )}
 

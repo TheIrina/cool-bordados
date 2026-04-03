@@ -20,8 +20,7 @@ const MercadopagoWrapper: React.FC<Props> = ({
     }
     
     useEffect(() => {
-        //@ts-ignore
-        if (!window.MercadoPago) {
+        if (!("MercadoPago" in window)) {
             initMercadoPago(mercadopagoKey)
         }
     }, [])

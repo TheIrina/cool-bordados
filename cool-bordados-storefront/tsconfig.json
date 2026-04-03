@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "es5",
     "lib": [
       "dom",
@@ -28,6 +29,9 @@
       ],
       "@pages/*": [
         "pages/*"
+      ],
+      "@features/*": [
+        "features/*"
       ]
     },
     "plugins": [

@@ -3,8 +3,21 @@ import Input from "@modules/common/components/input"
 import React, { useState } from "react"
 import CountrySelect from "../country-select"
 
+/** Campos tipados del formulario de dirección de facturación */
+type BillingFormData = {
+  "billing_address.first_name": string
+  "billing_address.last_name": string
+  "billing_address.address_1": string
+  "billing_address.company": string
+  "billing_address.postal_code": string
+  "billing_address.city": string
+  "billing_address.country_code": string
+  "billing_address.province": string
+  "billing_address.phone": string
+}
+
 const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<BillingFormData>({
     "billing_address.first_name": cart?.billing_address?.first_name || "",
     "billing_address.last_name": cart?.billing_address?.last_name || "",
     "billing_address.address_1": cart?.billing_address?.address_1 || "",

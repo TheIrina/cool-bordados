@@ -35,7 +35,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
     success: false,
     error: null,
     addressId: address.id,
-  })
+  } as Record<string, unknown> & { success: boolean; error: string | null })
 
   const close = () => {
     setSuccessState(false)

@@ -74,13 +74,13 @@ export async function getOrSetCart(countryCode: string) {
     await setCartId(cart.id)
 
     const cartCacheTag = await getCacheTag("carts")
-    revalidateTag(cartCacheTag)
+    revalidateTag(cartCacheTag, "default")
   }
 
   if (cart && cart?.region_id !== region.id) {
     await sdk.store.cart.update(cart.id, { region_id: region.id }, {}, headers)
     const cartCacheTag = await getCacheTag("carts")
-    revalidateTag(cartCacheTag)
+    revalidateTag(cartCacheTag, "default")
   }
 
   return cart
@@ -101,10 +101,10 @@ export async function updateCart(data: HttpTypes.StoreUpdateCart) {
     .update(cartId, data, {}, headers)
     .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+      revalidateTag(fulfillmentCacheTag, "default")
 
       return cart
     })
@@ -146,10 +146,10 @@ export async function addToCart({
     )
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+      revalidateTag(fulfillmentCacheTag, "default")
     })
     .catch(medusaError)
 }
@@ -179,10 +179,10 @@ export async function updateLineItem({
     .updateLineItem(cartId, lineId, { quantity }, {}, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+      revalidateTag(fulfillmentCacheTag, "default")
     })
     .catch(medusaError)
 }
@@ -203,13 +203,13 @@ export async function deleteLineItem(lineId: string) {
   }
 
   await sdk.store.cart
-    .deleteLineItem(cartId, lineId, headers)
+    .deleteLineItem(cartId, lineId, {} as Record<string, unknown>, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+      revalidateTag(fulfillmentCacheTag, "default")
     })
     .catch(medusaError)
 }
@@ -229,7 +229,7 @@ export async function setShippingMethod({
     .addShippingMethod(cartId, { option_id: shippingMethodId }, {}, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
     })
     .catch(medusaError)
 }
@@ -246,7 +246,7 @@ export async function initiatePaymentSession(
     .initiatePaymentSession(cart, data, {}, headers)
     .then(async (resp) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
       return resp
     })
     .catch(medusaError)
@@ -267,10 +267,10 @@ export async function applyPromotions(codes: string[]) {
     .update(cartId, { promo_codes: codes }, {}, headers)
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
 
       const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+      revalidateTag(fulfillmentCacheTag, "default")
     })
     .catch(medusaError)
 }
@@ -280,7 +280,7 @@ export async function applyGiftCard(code: string) {
   //   if (!cartId) return "No cartId cookie found"
   //   try {
   //     await updateCart(cartId, { gift_cards: [{ code }] }).then(() => {
-  //       revalidateTag("cart")
+  //       revalidateTag("cart", "default")
   //     })
   //   } catch (error: any) {
   //     throw error
@@ -292,7 +292,7 @@ export async function removeDiscount(code: string) {
   // if (!cartId) return "No cartId cookie found"
   // try {
   //   await deleteDiscount(cartId, code)
-  //   revalidateTag("cart")
+  //   revalidateTag("cart", "default")
   // } catch (error: any) {
   //   throw error
   // }
@@ -300,7 +300,7 @@ export async function removeDiscount(code: string) {
 
 export async function removeGiftCard(
   codeToRemove: string,
-  giftCards: any[]
+  giftCards: { code: string }[]
   // giftCards: GiftCard[]
 ) {
   //   const cartId = getCartId()
@@ -311,7 +311,7 @@ export async function removeGiftCard(
   //         .filter((gc) => gc.code !== codeToRemove)
   //         .map((gc) => ({ code: gc.code })),
   //     }).then(() => {
-  //       revalidateTag("cart")
+  //       revalidateTag("cart", "default")
   //     })
   //   } catch (error: any) {
   //     throw error
@@ -325,8 +325,8 @@ export async function submitPromotionForm(
   const code = formData.get("code") as string
   try {
     await applyPromotions([code])
-  } catch (e: any) {
-    return e.message
+  } catch (e: unknown) {
+    return e instanceof Error ? e.message : String(e)
   }
 }
 
@@ -355,27 +355,27 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         phone: formData.get("shipping_address.phone"),
       },
       email: formData.get("email"),
-    } as any
+    } as HttpTypes.StoreUpdateCart
 
     const sameAsBilling = formData.get("same_as_billing")
     if (sameAsBilling === "on") data.billing_address = data.shipping_address
 
     if (sameAsBilling !== "on")
       data.billing_address = {
-        first_name: formData.get("billing_address.first_name"),
-        last_name: formData.get("billing_address.last_name"),
-        address_1: formData.get("billing_address.address_1"),
+        first_name: formData.get("billing_address.first_name") as string,
+        last_name: formData.get("billing_address.last_name") as string,
+        address_1: formData.get("billing_address.address_1") as string,
         address_2: "",
-        company: formData.get("billing_address.company"),
-        postal_code: formData.get("billing_address.postal_code"),
-        city: formData.get("billing_address.city"),
-        country_code: formData.get("billing_address.country_code"),
-        province: formData.get("billing_address.province"),
-        phone: formData.get("billing_address.phone"),
+        company: formData.get("billing_address.company") as string,
+        postal_code: formData.get("billing_address.postal_code") as string,
+        city: formData.get("billing_address.city") as string,
+        country_code: formData.get("billing_address.country_code") as string,
+        province: formData.get("billing_address.province") as string,
+        phone: formData.get("billing_address.phone") as string,
       }
     await updateCart(data)
-  } catch (e: any) {
-    return e.message
+  } catch (e: unknown) {
+    return e instanceof Error ? e.message : String(e)
   }
 
   redirect(
@@ -403,7 +403,7 @@ export async function placeOrder(cartId?: string) {
     .complete(id, {}, headers)
     .then(async (cartRes) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+      revalidateTag(cartCacheTag, "default")
       return cartRes
     })
     .catch(medusaError)
@@ -413,7 +413,7 @@ export async function placeOrder(cartId?: string) {
       cartRes.order.shipping_address?.country_code?.toLowerCase()
 
     const orderCacheTag = await getCacheTag("orders")
-    revalidateTag(orderCacheTag)
+    revalidateTag(orderCacheTag, "default")
 
     removeCartId()
     redirect(`/${countryCode}/order/${cartRes?.order.id}/confirmed`)
@@ -438,14 +438,14 @@ export async function updateRegion(countryCode: string, currentPath: string) {
   if (cartId) {
     await updateCart({ region_id: region.id })
     const cartCacheTag = await getCacheTag("carts")
-    revalidateTag(cartCacheTag)
+    revalidateTag(cartCacheTag, "default")
   }
 
   const regionCacheTag = await getCacheTag("regions")
-  revalidateTag(regionCacheTag)
+  revalidateTag(regionCacheTag, "default")
 
   const productsCacheTag = await getCacheTag("products")
-  revalidateTag(productsCacheTag)
+  revalidateTag(productsCacheTag, "default")
 
   redirect(`/${countryCode}${currentPath}`)
 }

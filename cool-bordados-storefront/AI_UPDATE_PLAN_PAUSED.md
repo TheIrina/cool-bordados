@@ -1,7 +1,11 @@
 # 📦 E-Commerce Modernization & Update Ledger
-**Status**: 🟡 In Progress  
+**Status**: ⏸️ PAUSADO TEMPORALMENTE (Abril 2026)  
+> [!WARNING]
+> **MOTIVO DE LA PAUSA**: Se ha decidido pausar este plan de actualización de dependencias, ya que identificamos que la estructura monolítica actual del proyecto superará el contexto de las IAs al manejar librerías intrusivas como Tailwind v4 o Stripe v9, aumentando los incidentes de pérdida de memoria y uso de tipos 'any'.
+> **NUEVO FOCO:** Nos enfocaremos primero en migrar hacia una Arquitectura AI-First (Feature-Sliced Design + Hooks). Por favor, redirígete y da máxima prioridad a leer el documento -> **[AI_ARCHITECTURE_ROADMAP.md](./AI_ARCHITECTURE_ROADMAP.md)**. Una vez finalizada la arquitectura, se reanudará este plan desde la Fase 3.
+
 **Objective**: Safely update the repository's dependencies to their latest major versions using an isolated, branch-by-branch approach to avoid system-wide regressions.
-**For AIs / Assistants**: Use this document as the ground truth for updates. Change the checklist `[ ]` to `[x]` as tasks are completed. Add an entry to the **Audit Log** when a phase is merged.
+**For AIs / Assistants**: Use this document as the ground truth for updates... pero ten en cuenta la pausa activa descrita en el banner de arriba.
 
 ---
 
@@ -26,13 +30,13 @@
 - [x] Update `next-devtools-mcp` (`0.2.6` -> `~0.3.10`)
 - [x] **Verification**: Ensure no React initialization errors in the Vercel plugin implementations.
 
-### 🟡 Phase 2: Typings & Build Tools (TypeScript)
+### ✅ Phase 2: Typings & Build Tools (TypeScript)
 *Medium risk. Might introduce new type errors that need manual adjustment.*
-- [ ] **Branch**: `chore/update-build-tools`
-- [ ] Update `@types/node` (`17.0.21` -> `~25.5.2`)
-- [ ] Update `typescript` (`5.9.3` -> `~6.0.2`)
-- [ ] Update `babel-loader` (`8.4.1` -> `~10.1.1`)
-- [ ] **Verification**: Run `tsc --noEmit` locally and resolve any new type-checking errors. Ensure no Next.js build issues occur.
+- [x] **Branch**: `chore/update-build-tools`
+- [x] Update `@types/node` (`17.0.21` -> `~25.5.2`)
+- [x] Update `typescript` (`5.9.3` -> `~6.0.2`)
+- [x] Update `babel-loader` (`8.4.1` -> `~10.1.1`)
+- [x] **Verification**: Run `tsc --noEmit` locally and resolve any new type-checking errors. Ensure no Next.js build issues occur.
 
 ### 🟡 Phase 3: Formatting & Linting (ESLint v9/v10)
 *High effort (configuration rewrite), but does not break runtime application logic.*
@@ -69,3 +73,4 @@
 
 - **2026-04-03**: `AI_UPDATE_PLAN.md` created. Strategy officially defined.
 - **2026-04-03**: Completed Phase 1 on branch `chore/update-vercel-tools`. Updated `@vercel/analytics`, `@vercel/speed-insights`, and `next-devtools-mcp`. Tested with `bun run build`, everything succeeded smoothly.
+- **2026-04-03**: Completed Phase 2 on branch `chore/update-build-tools` branched off `master` (which contains Phase 1). Updated `@types/node`, `typescript`, `babel-loader`. Fixed 55 type errors brought up by TS 6.0 enforcing stricter checks (e.g. `revalidateTag` required profile, missing `clx` import, undefined cart values). Verified with `tsc --noEmit` and `bun run build`.

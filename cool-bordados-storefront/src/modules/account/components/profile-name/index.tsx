@@ -16,7 +16,7 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
   const [successState, setSuccessState] = React.useState(false)
 
   const updateCustomerName = async (
-    _currentState: Record<string, unknown>,
+    _currentState: { success: boolean; error: string | null },
     formData: FormData
   ) => {
     const customer = {
@@ -27,13 +27,13 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
     try {
       await updateCustomer(customer)
       return { success: true, error: null }
-    } catch (error: any) {
-      return { success: false, error: error.toString() }
+    } catch (error: unknown) {
+      return { success: false, error: error instanceof Error ? error.toString() : String(error) }
     }
   }
 
   const [state, formAction] = useActionState(updateCustomerName, {
-    error: false,
+    error: null as string | null,
     success: false,
   })
 
