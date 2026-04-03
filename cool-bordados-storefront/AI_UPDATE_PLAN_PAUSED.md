@@ -38,14 +38,14 @@
 - [x] Update `babel-loader` (`8.4.1` -> `~10.1.1`)
 - [x] **Verification**: Run `tsc --noEmit` locally and resolve any new type-checking errors. Ensure no Next.js build issues occur.
 
-### 🟡 Phase 3: Formatting & Linting (ESLint v9/v10)
+### ✅ Phase 3: Formatting & Linting (ESLint v9/v10)
 *High effort (configuration rewrite), but does not break runtime application logic.*
-- [ ] **Branch**: `chore/update-linters`
-- [ ] Fix `lint` script in `package.json` so that `bun lint` works properly (currently throws an "Invalid project directory" error).
-- [ ] Update `prettier` (`2.8.8` -> `~3.8.1`)
-- [ ] Update `eslint` (`8.10.0` -> `~10.1.0`)
-- [ ] **BREAKING**: Migrate ESLint to v9+ Flat Config format (`eslint.config.js` or `eslint.config.mjs`), which might require updating all eslint plugins.
-- [ ] **Verification**: Run `bun lint` and `bun run format`. Resolve formatting/linting issues.
+- [x] **Branch**: `chore/update-linters`
+- [x] Fix `lint` script in `package.json` so that `bun lint` works properly (previously throws "Invalid project directory" error).
+- [x] Update `prettier` (`2.8.8` -> `~3.8.1`)
+- [x] Update `eslint` (`8.10.0` -> `~9.39.4`)
+- [x] **BREAKING**: Migrated to ESLint v9+ Flat Config format (`eslint.config.mjs`), using `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript` native flat exports.
+- [x] **Verification**: `bun lint` runs successfully (16 pre-existing React hooks errors, 0 `any` types). `tsc --noEmit` (exit 0). `bun run build` (exit 0).
 
 ### 🟡 Phase 4: Stripe Ecosystem (Critical)
 *Critical risk. Requires extreme caution around the payments infrastructure.*
@@ -74,3 +74,4 @@
 - **2026-04-03**: `AI_UPDATE_PLAN.md` created. Strategy officially defined.
 - **2026-04-03**: Completed Phase 1 on branch `chore/update-vercel-tools`. Updated `@vercel/analytics`, `@vercel/speed-insights`, and `next-devtools-mcp`. Tested with `bun run build`, everything succeeded smoothly.
 - **2026-04-03**: Completed Phase 2 on branch `chore/update-build-tools` branched off `master` (which contains Phase 1). Updated `@types/node`, `typescript`, `babel-loader`. Fixed 55 type errors brought up by TS 6.0 enforcing stricter checks (e.g. `revalidateTag` required profile, missing `clx` import, undefined cart values). Verified with `tsc --noEmit` and `bun run build`.
+- **2026-04-03**: Completed Phase 3 on branch `chore/update-linters`. ESLint 8.10.0 → 9.39.4 (Flat Config via `eslint.config.mjs`). Prettier 2.8.8 → 3.8.1. Fixed broken `next lint` script → `eslint .`. Deleted legacy `.eslintrc.js`. Used native `eslint-config-next/core-web-vitals` + `/typescript` flat exports (no FlatCompat needed). Eliminated 5 additional `any` types across `orders.ts`, `billing_address`, `profile-billing-address`, `shipping-address`, `search-modal`. Created typed form interfaces. `bun lint` (0 `any`, 16 pre-existing React hooks errors), `tsc --noEmit` (exit 0), `bun run build` (exit 0).

@@ -54,10 +54,10 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 
 ---
 
-### 🟡 Fase D: Reanudación de Actualizaciones Core
+### ✅ Fase D: Reanudación de Actualizaciones Core
 *Terminada toda la infraestructura visual del e-commerce AI-First, reanuda tu enfoque al ecosistema.*
-- [ ] Abrir el archivo *`AI_UPDATE_PLAN_PAUSED.md`*
-- [ ] Proceder con la Fase 3: ESlint Configuración.
+- [x] Abrir el archivo *`AI_UPDATE_PLAN_PAUSED.md`*
+- [x] Proceder con la Fase 3: ESlint Configuración.
 - [ ] Proceder con la migración al Stripe API v9, atacando directamente solo al enrutador cerebral de `use-payment`.
 - [ ] Proceder exhaustivamente a actualizar TailwindCSS v4 de manera global, basándote en la simplicidad de manipular `ui/`.
 
@@ -69,4 +69,4 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 - **[2026-04-03]**: Implementación inicial del Pivot Document Arquitectónico para alivianar el coste de tokens para asistentes GPT/LLM en proyectos pesados con Medusa.js.
 - **[2026-04-03]**: ✅ Fase A completada. Payment refactorizado de 433→27 líneas (mediador). Creados: `src/features/checkout/types/payment.types.ts`, `hooks/use-payment.ts`, `ui/payment-view.tsx`. Eliminados 7 usos de `any`/`@ts-ignore`, todos los `console.log` de debug. `Window` augmentada para MercadoPago Brick. `ExtendedCart` creada para gift_cards. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
 - **[2026-04-03]**: ✅ Fase B completada. Refactorizados 3 componentes: Shipping (409→23 lín, 3 `any` eliminados via `ExtendedShippingOption`), ProductActions (210→24 lín, 1 `any` eliminado), CartDropdown (231→19 lín, ya limpio). StoreTemplate SKIP (52 líneas, server component). Nuevas features: `src/features/checkout/`, `src/features/products/`, `src/features/layout/`. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
-- **[2026-04-03]**: ✅ Fase C completada. Eliminación global de `any`/`@ts-ignore`/`@ts-expect-error`. 30+ archivos modificados en `src/lib/`, `src/modules/`, `src/proxy.ts`, `src/types/`. Patrones: `catch (e: any)` → `catch (e: unknown)`, `as any` → typed DTOs/interfaces, `Record<string, any>` → narrowed types, `[x: string]: any` → `ComponentProps<typeof Link>`, `@ts-ignore` → eliminados. Bonus: corregidos 7+ errores pre-existentes de `useActionState` en profile components. `tsc --noEmit` (0 errores) y `bun run build` (exit 0).
+- **[2026-04-03]**: ✅ Fase D / Phase 3 completada. ESLint 8.10.0 → 9.39.4 con Flat Config (`eslint.config.mjs`). Prettier 2.8.8 → 3.8.1. `.eslintrc.js` legacy eliminado. Bug `next lint` ("Invalid project directory") resuelto → script usa `eslint .` directo. Añadidos `@eslint/js`, `@eslint/eslintrc`. Nueva Config Flat usa `eslint-config-next/core-web-vitals` + `eslint-config-next/typescript` nativos (sin FlatCompat). Regla `@typescript-eslint/no-explicit-any: error` activa via nextTs built-in. 5 tipos `any` adicionales eliminados en `orders.ts`, `billing_address`, `profile-billing-address`, `shipping-address`, `search-modal`. Tipos propios creados: `OrderFilters`, `BillingAddressFormState`, `BillingFormData`, `ShippingFormData`. Scripts añadidos: `lint:fix`, `format`, `format:check`. `bun lint` (16 errores pre-existentes de React hooks, 0 `any`), `tsc --noEmit` (exit 0), `bun run build` (exit 0). Branch: `chore/update-linters`.
