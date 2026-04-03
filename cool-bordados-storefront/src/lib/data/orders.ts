@@ -29,10 +29,13 @@ export const retrieveOrder = async (id: string) => {
     .catch((err) => medusaError(err))
 }
 
+/** Filtros opcionales para la query de órdenes — valores primitivos propios de SDK */
+type OrderFilters = Record<string, string | number | boolean | string[]>
+
 export const listOrders = async (
   limit: number = 10,
   offset: number = 0,
-  filters?: Record<string, any>
+  filters?: OrderFilters
 ) => {
   const headers = {
     ...(await getAuthHeaders()),

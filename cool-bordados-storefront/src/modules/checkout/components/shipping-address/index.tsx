@@ -7,6 +7,20 @@ import React, { useEffect, useMemo, useState } from "react"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
 
+/** Forma tipada de los campos del formulario de envío */
+type ShippingFormData = {
+  "shipping_address.first_name": string
+  "shipping_address.last_name": string
+  "shipping_address.address_1": string
+  "shipping_address.company": string
+  "shipping_address.postal_code": string
+  "shipping_address.city": string
+  "shipping_address.country_code": string
+  "shipping_address.province": string
+  "shipping_address.phone": string
+  email: string
+}
+
 const ShippingAddress = ({
   customer,
   cart,
@@ -18,7 +32,7 @@ const ShippingAddress = ({
   checked: boolean
   onChange: () => void
 }) => {
-  const [formData, setFormData] = useState<Record<string, any>>({
+  const [formData, setFormData] = useState<ShippingFormData>({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
     "shipping_address.address_1": cart?.shipping_address?.address_1 || "",
@@ -50,7 +64,7 @@ const ShippingAddress = ({
     email?: string
   ) => {
     address &&
-      setFormData((prevState: Record<string, any>) => ({
+      setFormData((prevState: ShippingFormData) => ({
         ...prevState,
         "shipping_address.first_name": address?.first_name || "",
         "shipping_address.last_name": address?.last_name || "",
@@ -64,7 +78,7 @@ const ShippingAddress = ({
       }))
 
     email &&
-      setFormData((prevState: Record<string, any>) => ({
+      setFormData((prevState: ShippingFormData) => ({
         ...prevState,
         email: email,
       }))
@@ -104,7 +118,7 @@ const ShippingAddress = ({
             addressInput={
               mapKeys(formData, (_, key) =>
                 key.replace("shipping_address.", "")
-              ) as HttpTypes.StoreCartAddress
+              ) as unknown as HttpTypes.StoreCartAddress
             }
             onSelect={setFormAddress}
           />

@@ -14,6 +14,13 @@ type MyInformationProps = {
   regions: HttpTypes.StoreRegion[]
 }
 
+/** Estado del formulario de dirección de facturación para useActionState.
+ * Debe coincidir con el tipo de retorno de addCustomerAddress/updateCustomerAddress. */
+type BillingAddressFormState = {
+  success: boolean
+  error: string | null
+}
+
 const ProfileBillingAddress: React.FC<MyInformationProps> = ({
   customer,
   regions,
@@ -37,15 +44,9 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
     (addr) => addr.is_default_billing
   )
 
-  const initialState: Record<string, any> = {
-    isDefaultBilling: true,
-    isDefaultShipping: false,
-    error: false,
+  const initialState: BillingAddressFormState = {
     success: false,
-  }
-
-  if (billingAddress) {
-    initialState.addressId = billingAddress.id
+    error: null,
   }
 
   const [state, formAction] = useActionState(
