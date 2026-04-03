@@ -37,13 +37,13 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 
 ---
 
-### 🟡 Fase B: Desacoplamiento de Entidades Grandes
+### ✅ Fase B: Desacoplamiento de Entidades Grandes
 *Migraremos componente por componente de la tienda online guiándonos con el esquema implementado.*
-- [ ] Refactor Checkout: **Shipping** (`src/modules/checkout/components/shipping`)
-- [ ] Refactor Product Details: **Product Actions** (`src/modules/products/components/product-actions/index.tsx`)
-- [ ] Refactor Global: **Cart Dropdown** (`src/modules/layout/components/cart-dropdown/index.tsx`)
-- [ ] Refactor Filters: **Store Template / Filters** (`src/modules/store/templates/index.tsx`)
-- [ ] (Añadir a discresion en base a revisiones de código de IA de aquellas que sobrepasen 200 líneas métricas de TypeScript).
+- [x] Refactor Checkout: **Shipping** (`src/modules/checkout/components/shipping`) → `src/features/checkout/{hooks,ui,types}/`
+- [x] Refactor Product Details: **Product Actions** (`src/modules/products/components/product-actions/index.tsx`) → `src/features/products/{hooks,ui,types}/`
+- [x] Refactor Global: **Cart Dropdown** (`src/modules/layout/components/cart-dropdown/index.tsx`) → `src/features/layout/{hooks,ui,types}/`
+- [x] ~~Refactor Filters: **Store Template / Filters**~~ — SKIP: Solo 52 líneas, server component limpio sin `any`. No requiere FSD.
+- [x] (Revisión de IA: No se encontraron otros componentes \u003e200 líneas que requieran refactorización).
 
 ---
 
@@ -68,3 +68,4 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 
 - **[2026-04-03]**: Implementación inicial del Pivot Document Arquitectónico para alivianar el coste de tokens para asistentes GPT/LLM en proyectos pesados con Medusa.js.
 - **[2026-04-03]**: ✅ Fase A completada. Payment refactorizado de 433→27 líneas (mediador). Creados: `src/features/checkout/types/payment.types.ts`, `hooks/use-payment.ts`, `ui/payment-view.tsx`. Eliminados 7 usos de `any`/`@ts-ignore`, todos los `console.log` de debug. `Window` augmentada para MercadoPago Brick. `ExtendedCart` creada para gift_cards. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
+- **[2026-04-03]**: ✅ Fase B completada. Refactorizados 3 componentes: Shipping (409→23 lín, 3 `any` eliminados via `ExtendedShippingOption`), ProductActions (210→24 lín, 1 `any` eliminado), CartDropdown (231→19 lín, ya limpio). StoreTemplate SKIP (52 líneas, server component). Nuevas features: `src/features/checkout/`, `src/features/products/`, `src/features/layout/`. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
