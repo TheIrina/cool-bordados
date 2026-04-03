@@ -1,0 +1,69 @@
+src/lib/data/cart.ts(77,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(83,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(104,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(107,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(149,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(152,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(182,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(185,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(206,37): error TS2559: Type '{ authorization?: string | undefined; }' has no properties in common with type 'SelectParams'.
+src/lib/data/cart.ts(209,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(212,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(232,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(249,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(270,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(273,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(406,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(416,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(441,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(445,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/cart.ts(448,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(57,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(97,5): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(117,9): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(136,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(141,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(158,3): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(191,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(210,7): error TS2554: Expected 2 arguments, but got 1.
+src/lib/data/customer.ts(255,7): error TS2554: Expected 2 arguments, but got 1.
+src/modules/checkout/components/payment/index.tsx(121,11): error TS2339: Property 'gift_cards' does not exist on type 'StoreCart'.
+src/modules/checkout/components/payment/index.tsx(121,31): error TS2339: Property 'gift_cards' does not exist on type 'StoreCart'.
+src/modules/checkout/components/payment/index.tsx(124,23): error TS18048: 'cart.shipping_methods' is possibly 'undefined'.
+src/modules/checkout/components/payment/index.tsx(172,27): error TS2339: Property 'paymentBrickController' does not exist on type 'Window & typeof globalThis'.
+src/modules/checkout/components/payment/index.tsx(177,45): error TS2339: Property 'paymentBrickController' does not exist on type 'Window & typeof globalThis'.
+src/modules/checkout/components/payment/index.tsx(178,39): error TS2339: Property 'paymentBrickController' does not exist on type 'Window & typeof globalThis'.
+src/modules/checkout/components/payment/index.tsx(291,50): error TS2339: Property 'amount' does not exist on type 'StoreCart'.
+src/modules/checkout/components/shipping/index.tsx(74,16): error TS2551: Property 'service_zone' does not exist on type 'StoreCartShippingOption'. Did you mean 'service_zone_id'?
+src/modules/checkout/components/shipping/index.tsx(78,16): error TS2551: Property 'service_zone' does not exist on type 'StoreCartShippingOption'. Did you mean 'service_zone_id'?
+src/modules/checkout/components/shipping/index.tsx(345,42): error TS2551: Property 'service_zone' does not exist on type 'StoreCartShippingOption'. Did you mean 'service_zone_id'?
+src/modules/common/components/line-item-price/index.tsx(20,27): error TS18048: 'currentPrice' is possibly 'undefined'.
+src/modules/common/components/line-item-price/index.tsx(20,42): error TS18048: 'originalPrice' is possibly 'undefined'.
+src/modules/common/components/line-item-price/index.tsx(36,19): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/modules/common/components/line-item-price/index.tsx(43,37): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/modules/common/components/line-item-price/index.tsx(55,13): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/modules/common/components/line-item-unit-price/index.tsx(17,27): error TS18048: 'total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(17,35): error TS18048: 'original_total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(20,7): error TS18048: 'original_total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(20,24): error TS18048: 'total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(20,33): error TS18048: 'original_total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(36,25): error TS18048: 'original_total' is possibly 'undefined'.
+src/modules/common/components/line-item-unit-price/index.tsx(53,19): error TS18048: 'total' is possibly 'undefined'.
+src/modules/layout/components/cart-dropdown/index.tsx(51,20): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(timeout: string | number | Timeout | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+      Type 'Timer' is missing the following properties from type 'Timeout': close, _onTimeout, [Symbol.dispose]
+  Overload 2 of 2, '(id: number | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'number'.
+src/modules/layout/components/cart-dropdown/index.tsx(61,22): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(timeout: string | number | Timeout | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+      Type 'Timer' is missing the following properties from type 'Timeout': close, _onTimeout, [Symbol.dispose]
+  Overload 2 of 2, '(id: number | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'number'.
+src/modules/layout/components/country-select/index.tsx(118,44): error TS2304: Cannot find name 'clx'.
+src/modules/products/components/product-actions/index.tsx(158,23): error TS2322: Type '{ option: StoreProductOption; current: string | undefined; updateOption: (optionId: string, value: string) => void; title: string; "data-testid": string; disabled: boolean; variants: StoreProductVariant[] | null; }' is not assignable to type 'IntrinsicAttributes & OptionSelectProps'.
+  Property 'variants' does not exist on type 'IntrinsicAttributes & OptionSelectProps'.
