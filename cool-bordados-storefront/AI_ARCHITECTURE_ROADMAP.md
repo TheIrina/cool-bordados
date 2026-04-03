@@ -30,10 +30,10 @@ Sigue el proceso sistemático a continuación. Marca `[ ]` en `[x]` a medida que
 
 ### ✅ Fase A: Módulo Piloto - Proof of Concept (Checkout: Payment)
 Demostraremos la viabilidad separando el componente y controlador más pesado del Checkout en un patrón Feature-Sliced.
-- [ ] **1. Archivos Core & Tipos:** Crear una estructura semántica para `payment` (`src/features/checkout/components/payment`).
-- [ ] **2. Separación de Lógica:** Migrar llamadas a `initiatePaymentSession`, controladores de Stripe/MercadoPago, métodos a `src/features/checkout/hooks/use-payment.ts`.
-- [ ] **3. UI Estética:** Pasar todo el JSX del radiogroup y contenedores base a `src/features/checkout/ui/payment-view.tsx`.
-- [ ] **4. Composición Wrapper:** Dejar en `src/modules/checkout/components/payment/index.tsx` solo el puente de los otros dos y probar usando el comando `$ bun run build` junto con navegación visual manual en navegador si procede.
+- [x] **1. Archivos Core & Tipos:** Crear una estructura semántica para `payment` (`src/features/checkout/types/payment.types.ts`).
+- [x] **2. Separación de Lógica:** Migrar llamadas a `initiatePaymentSession`, controladores de Stripe/MercadoPago, métodos a `src/features/checkout/hooks/use-payment.ts`.
+- [x] **3. UI Estética:** Pasar todo el JSX del radiogroup y contenedores base a `src/features/checkout/ui/payment-view.tsx`.
+- [x] **4. Composición Wrapper:** Dejar en `src/modules/checkout/components/payment/index.tsx` solo el puente de los otros dos y probar usando el comando `$ bun run build` junto con navegación visual manual en navegador si procede.
 
 ---
 
@@ -67,3 +67,4 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 > Aquí se registrarán los Merge/Commit que avalen la estructura AI First.
 
 - **[2026-04-03]**: Implementación inicial del Pivot Document Arquitectónico para alivianar el coste de tokens para asistentes GPT/LLM en proyectos pesados con Medusa.js.
+- **[2026-04-03]**: ✅ Fase A completada. Payment refactorizado de 433→27 líneas (mediador). Creados: `src/features/checkout/types/payment.types.ts`, `hooks/use-payment.ts`, `ui/payment-view.tsx`. Eliminados 7 usos de `any`/`@ts-ignore`, todos los `console.log` de debug. `Window` augmentada para MercadoPago Brick. `ExtendedCart` creada para gift_cards. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
