@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
+import { HttpTypes } from "@medusajs/types"
 
 import SortProducts, { SortOptions } from "./sort-products"
 import CategoryFilter from "./category-filter"
@@ -10,7 +11,7 @@ type RefinementListProps = {
   sortBy: SortOptions
   search?: boolean
   'data-testid'?: string
-  categories?: { id: string; name: string; category_children?: any[] }[]
+  categories?: { id: string; name: string; category_children?: HttpTypes.StoreProductCategory[] }[]
   selectedCategoryId?: string
   searchQuery?: string
 }

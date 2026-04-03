@@ -220,8 +220,8 @@ const MercadopagoPaymentButton = ({
     try {
       await confirmMercadopagoPayment(session.id, formData.formData)
       onPaymentCompleted()
-    } catch (e: any) {
-      setErrorMessage(e.message || "Error al procesar el pago")
+    } catch (e: unknown) {
+      setErrorMessage(e instanceof Error ? e.message : "Error al procesar el pago")
       setSubmitting(false)
     }
   }
@@ -349,8 +349,8 @@ const ContraEntregaPaymentButton = ({
             // If we are just updating details within the same region/zip (mostly), it *should* be fine,
             // BUT Medusa might be strict.
             
-        } catch (e: any) {
-            setErrorMessage(e.message)
+        } catch (e: unknown) {
+            setErrorMessage(e instanceof Error ? e.message : String(e))
             setSubmitting(false)
             return
         }

@@ -58,9 +58,9 @@ async function getRegionMap(cacheId: string) {
       }
 
       regionMapCache.regionMapUpdated = Date.now()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(
-        `Proxy.ts: Error fetching regions from Medusa: ${error.message}`
+        `Proxy.ts: Error fetching regions from Medusa: ${error instanceof Error ? error.message : String(error)}`
       )
     }
   }

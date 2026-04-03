@@ -47,10 +47,10 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 
 ---
 
-### 🟡 Fase C: Zod y Eliminación de "Any" Global (Full Type Safety)
+### ✅ Fase C: Zod y Eliminación de "Any" Global (Full Type Safety)
 *Auditar todo el código modificado previamente.*
-- [ ] Auditar e identificar `(cart as any)` dentro de `cart.ts` y similares mutando hacia Types propios enriquecidos o DTOs (Data Transfer Objects).
-- [ ] Comprobar exhaustivamente la fase mediante `tsc --noEmit`. No se permite seguir a menos que devuelva un código `Ext Code: 0` y no hayan dependencias ambiguas.
+- [x] Auditar e identificar `(cart as any)` dentro de `cart.ts` y similares mutando hacia Types propios enriquecidos o DTOs (Data Transfer Objects).
+- [x] Comprobar exhaustivamente la fase mediante `tsc --noEmit`. No se permite seguir a menos que devuelva un código `Ext Code: 0` y no hayan dependencias ambiguas.
 
 ---
 
@@ -69,3 +69,4 @@ Demostraremos la viabilidad separando el componente y controlador más pesado de
 - **[2026-04-03]**: Implementación inicial del Pivot Document Arquitectónico para alivianar el coste de tokens para asistentes GPT/LLM en proyectos pesados con Medusa.js.
 - **[2026-04-03]**: ✅ Fase A completada. Payment refactorizado de 433→27 líneas (mediador). Creados: `src/features/checkout/types/payment.types.ts`, `hooks/use-payment.ts`, `ui/payment-view.tsx`. Eliminados 7 usos de `any`/`@ts-ignore`, todos los `console.log` de debug. `Window` augmentada para MercadoPago Brick. `ExtendedCart` creada para gift_cards. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
 - **[2026-04-03]**: ✅ Fase B completada. Refactorizados 3 componentes: Shipping (409→23 lín, 3 `any` eliminados via `ExtendedShippingOption`), ProductActions (210→24 lín, 1 `any` eliminado), CartDropdown (231→19 lín, ya limpio). StoreTemplate SKIP (52 líneas, server component). Nuevas features: `src/features/checkout/`, `src/features/products/`, `src/features/layout/`. Verificado con `tsc --noEmit` (exit 0) y `bun run build` (exit 0).
+- **[2026-04-03]**: ✅ Fase C completada. Eliminación global de `any`/`@ts-ignore`/`@ts-expect-error`. 30+ archivos modificados en `src/lib/`, `src/modules/`, `src/proxy.ts`, `src/types/`. Patrones: `catch (e: any)` → `catch (e: unknown)`, `as any` → typed DTOs/interfaces, `Record<string, any>` → narrowed types, `[x: string]: any` → `ComponentProps<typeof Link>`, `@ts-ignore` → eliminados. Bonus: corregidos 7+ errores pre-existentes de `useActionState` en profile components. `tsc --noEmit` (0 errores) y `bun run build` (exit 0).

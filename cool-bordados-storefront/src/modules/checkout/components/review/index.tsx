@@ -2,10 +2,12 @@
 
 import { Heading, Text, clx } from "@medusajs/ui"
 
+import { HttpTypes } from "@medusajs/types"
+import type { ExtendedCart } from "@features/checkout/types/payment.types"
 import PaymentButton from "../payment-button"
 import { useSearchParams } from "next/navigation"
 
-const Review = ({ cart }: { cart: any }) => {
+const Review = ({ cart }: { cart: ExtendedCart }) => {
   const searchParams = useSearchParams()
 
   const isOpen = searchParams.get("step") === "review"
@@ -15,7 +17,7 @@ const Review = ({ cart }: { cart: any }) => {
 
   const previousStepsCompleted =
     cart.shipping_address &&
-    cart.shipping_methods.length > 0 &&
+    (cart.shipping_methods?.length ?? 0) > 0 &&
     (cart.payment_collection || paidByGiftcard)
 
   return (

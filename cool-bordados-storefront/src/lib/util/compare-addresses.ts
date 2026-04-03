@@ -1,6 +1,16 @@
 import { isEqual, pick } from "lodash"
+import { HttpTypes } from "@medusajs/types"
 
-export default function compareAddresses(address1: any, address2: any) {
+type ComparableAddress =
+  | HttpTypes.StoreCartAddress
+  | HttpTypes.StoreCustomerAddress
+  | null
+  | undefined
+
+export default function compareAddresses(
+  address1: ComparableAddress,
+  address2: ComparableAddress
+) {
   return isEqual(
     pick(address1, [
       "first_name",

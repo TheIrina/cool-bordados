@@ -82,7 +82,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
           <div className="flex items-center gap-x-2 text-sm font-medium text-neutral-200">
             {current && (
               <>
-                {/* @ts-ignore */}
+
                 <ReactCountryFlag
                   svg
                   style={{
@@ -121,7 +121,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
                   active ? "bg-neutral-800 text-white" : "text-neutral-400 hover:text-neutral-200"
                 )}
               >
-                {/* @ts-ignore */}
+
                 <ReactCountryFlag
                   svg
                   style={{

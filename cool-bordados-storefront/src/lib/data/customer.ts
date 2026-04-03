@@ -99,8 +99,8 @@ export async function signup(_currentState: unknown, formData: FormData) {
     await transferCart()
 
     return createdCustomer
-  } catch (error: any) {
-    return error.toString()
+  } catch (error: unknown) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 }
 
@@ -116,14 +116,14 @@ export async function login(_currentState: unknown, formData: FormData) {
         const customerCacheTag = await getCacheTag("customers")
         revalidateTag(customerCacheTag, "default")
       })
-  } catch (error: any) {
-    return error.toString()
+  } catch (error: unknown) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 
   try {
     await transferCart()
-  } catch (error: any) {
-    return error.toString()
+  } catch (error: unknown) {
+    return error instanceof Error ? error.toString() : String(error)
   }
 }
 
@@ -161,7 +161,7 @@ export async function transferCart() {
 export const addCustomerAddress = async (
   currentState: Record<string, unknown>,
   formData: FormData
-): Promise<any> => {
+): Promise<{ success: boolean; error: string | null }> => {
   const isDefaultBilling = (currentState.isDefaultBilling as boolean) || false
   const isDefaultShipping = (currentState.isDefaultShipping as boolean) || false
 
@@ -218,7 +218,7 @@ export const deleteCustomerAddress = async (
 export const updateCustomerAddress = async (
   currentState: Record<string, unknown>,
   formData: FormData
-): Promise<any> => {
+): Promise<{ success: boolean; error: string | null }> => {
   const addressId =
     (currentState.addressId as string) || (formData.get("addressId") as string)
 

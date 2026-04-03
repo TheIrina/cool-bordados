@@ -26,7 +26,7 @@ const AddAddress = ({
     isDefaultShipping: addresses.length === 0,
     success: false,
     error: null,
-  })
+  } as Record<string, unknown> & { success: boolean; error: string | null })
 
   const close = () => {
     setSuccessState(false)
