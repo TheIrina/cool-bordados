@@ -118,10 +118,10 @@ const Payment = ({
   }
 
   const paidByGiftcard =
-    cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
+    (cart as any)?.gift_cards && (cart as any)?.gift_cards?.length > 0 && cart?.total === 0
 
   const paymentReady =
-    (activeSession && cart?.shipping_methods.length !== 0) || paidByGiftcard
+    (activeSession && cart?.shipping_methods?.length !== undefined && cart?.shipping_methods?.length !== 0) || paidByGiftcard
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -169,13 +169,13 @@ const Payment = ({
         )
       }
 
-      if (isMp && !window.paymentBrickController) {
+      if (isMp && !(window as any).paymentBrickController) {
         return;
       }
 
       if (isMp) {
-        const additionalData = await window.paymentBrickController!.getAdditionalData();
-        const formData = await window.paymentBrickController!.getFormData();
+        const additionalData = await (window as any).paymentBrickController!.getAdditionalData();
+        const formData = await (window as any).paymentBrickController!.getFormData();
         if (additionalData) {
           setAdditionalData(additionalData);
         }
@@ -288,7 +288,7 @@ const Payment = ({
                             <div className="p-4 bg-ui-bg-subtle border border-t-0 rounded-b-rounded -mt-2 mb-4">
                                 <MpPaymentBrick
                                   initialization={{
-                                    amount: cart.amount || cart.total
+                                    amount: (cart as any).amount || cart.total
                                   }}
                                   customization={{
                                     paymentMethods: { creditCard: "all", debitCard: "all" },

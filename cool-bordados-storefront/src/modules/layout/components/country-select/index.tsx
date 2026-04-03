@@ -14,6 +14,7 @@ import { StateType } from "@lib/hooks/use-toggle-state"
 import { useParams, usePathname } from "next/navigation"
 import { updateRegion } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import { clx } from "@medusajs/ui"
 
 type CountryOption = {
   country: string

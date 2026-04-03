@@ -26,13 +26,13 @@
 - [x] Update `next-devtools-mcp` (`0.2.6` -> `~0.3.10`)
 - [x] **Verification**: Ensure no React initialization errors in the Vercel plugin implementations.
 
-### 🟡 Phase 2: Typings & Build Tools (TypeScript)
+### ✅ Phase 2: Typings & Build Tools (TypeScript)
 *Medium risk. Might introduce new type errors that need manual adjustment.*
-- [ ] **Branch**: `chore/update-build-tools`
-- [ ] Update `@types/node` (`17.0.21` -> `~25.5.2`)
-- [ ] Update `typescript` (`5.9.3` -> `~6.0.2`)
-- [ ] Update `babel-loader` (`8.4.1` -> `~10.1.1`)
-- [ ] **Verification**: Run `tsc --noEmit` locally and resolve any new type-checking errors. Ensure no Next.js build issues occur.
+- [x] **Branch**: `chore/update-build-tools`
+- [x] Update `@types/node` (`17.0.21` -> `~25.5.2`)
+- [x] Update `typescript` (`5.9.3` -> `~6.0.2`)
+- [x] Update `babel-loader` (`8.4.1` -> `~10.1.1`)
+- [x] **Verification**: Run `tsc --noEmit` locally and resolve any new type-checking errors. Ensure no Next.js build issues occur.
 
 ### 🟡 Phase 3: Formatting & Linting (ESLint v9/v10)
 *High effort (configuration rewrite), but does not break runtime application logic.*
@@ -69,3 +69,4 @@
 
 - **2026-04-03**: `AI_UPDATE_PLAN.md` created. Strategy officially defined.
 - **2026-04-03**: Completed Phase 1 on branch `chore/update-vercel-tools`. Updated `@vercel/analytics`, `@vercel/speed-insights`, and `next-devtools-mcp`. Tested with `bun run build`, everything succeeded smoothly.
+- **2026-04-03**: Completed Phase 2 on branch `chore/update-build-tools` branched off `master` (which contains Phase 1). Updated `@types/node`, `typescript`, `babel-loader`. Fixed 55 type errors brought up by TS 6.0 enforcing stricter checks (e.g. `revalidateTag` required profile, missing `clx` import, undefined cart values). Verified with `tsc --noEmit` and `bun run build`.
