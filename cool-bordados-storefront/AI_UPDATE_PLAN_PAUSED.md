@@ -1,7 +1,11 @@
 # 📦 E-Commerce Modernization & Update Ledger
-**Status**: 🟡 In Progress  
+**Status**: ⏸️ PAUSADO TEMPORALMENTE (Abril 2026)  
+> [!WARNING]
+> **MOTIVO DE LA PAUSA**: Se ha decidido pausar este plan de actualización de dependencias, ya que identificamos que la estructura monolítica actual del proyecto superará el contexto de las IAs al manejar librerías intrusivas como Tailwind v4 o Stripe v9, aumentando los incidentes de pérdida de memoria y uso de tipos 'any'.
+> **NUEVO FOCO:** Nos enfocaremos primero en migrar hacia una Arquitectura AI-First (Feature-Sliced Design + Hooks). Por favor, redirígete y da máxima prioridad a leer el documento -> **[AI_ARCHITECTURE_ROADMAP.md](./AI_ARCHITECTURE_ROADMAP.md)**. Una vez finalizada la arquitectura, se reanudará este plan desde la Fase 3.
+
 **Objective**: Safely update the repository's dependencies to their latest major versions using an isolated, branch-by-branch approach to avoid system-wide regressions.
-**For AIs / Assistants**: Use this document as the ground truth for updates. Change the checklist `[ ]` to `[x]` as tasks are completed. Add an entry to the **Audit Log** when a phase is merged.
+**For AIs / Assistants**: Use this document as the ground truth for updates... pero ten en cuenta la pausa activa descrita en el banner de arriba.
 
 ---
 
