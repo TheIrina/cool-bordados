@@ -8,12 +8,19 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/modules/**/*.{js,ts,jsx,tsx}",
+    "./src/features/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "Inter", "-apple-system", "system-ui", "sans-serif"],
+        sans: [
+          "var(--font-geist-sans)",
+          "Inter",
+          "-apple-system",
+          "system-ui",
+          "sans-serif",
+        ],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
       transitionProperty: {
