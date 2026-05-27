@@ -99,15 +99,27 @@ const StripePaymentButton = ({
       return
     }
 
+    const clientSecret = (session?.data as Record<string, unknown> | undefined)?.client_secret
+
+    if (!clientSecret || typeof clientSecret !== "string") {
+      setErrorMessage("No se pudo obtener el client secret de Stripe.")
+      setSubmitting(false)
+      return
+    }
+
+    const billingName = [
+      cart.billing_address?.first_name,
+      cart.billing_address?.last_name,
+    ]
+      .filter(Boolean)
+      .join(" ") || undefined
+
     await stripe
-      .confirmCardPayment(session?.data.client_secret as string, {
+      .confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
-            name:
-              cart.billing_address?.first_name +
-              " " +
-              cart.billing_address?.last_name,
+            name: billingName,
             address: {
               city: cart.billing_address?.city ?? undefined,
               country: cart.billing_address?.country_code ?? undefined,
@@ -116,7 +128,7 @@ const StripePaymentButton = ({
               postal_code: cart.billing_address?.postal_code ?? undefined,
               state: cart.billing_address?.province ?? undefined,
             },
-            email: cart.email,
+            email: cart.email || undefined,
             phone: cart.billing_address?.phone ?? undefined,
           },
         },
